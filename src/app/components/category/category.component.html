@@ -1,0 +1,8 @@
+<div *ngIf="dataLoaded == false" class="spinner-border" role="status">
+  <span class="visually-hidden">Loading...</span>
+</div>
+
+<div *ngIf="dataLoaded==true" class="list-group">
+
+  <button (click)="setCurrentCategory(category)" *ngFor="let category of categories" type="button" [class]="getCurrentCategoryClass(category)">{{category.name}}</button>
+</div>

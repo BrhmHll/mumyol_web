@@ -1,9 +1,26 @@
-<table class="table">
-  <tr *ngFor="let product of products">
-    <td>{{product.Id}}-</td>
-    <td>{{product.productName}}</td>
-    <td>{{product.brand}}</td>
-    <td>{{product.categoryId}}</td>
-    <td>{{product.unitPrice}}</td>
-  </tr>
+<div *ngIf="dataLoaded == false" class="spinner-border" role="status">
+  <span class="visually-hidden">Loading...</span>
+</div>
+
+<table *ngIf="dataLoaded == true" class="table">
+  <thead>
+    <tr>
+      <td>Id</td>
+      <td>Marka</td>
+      <td>Urun Adi</td>
+      <td>Kategori Id</td>
+      <td>Toptan Fiyati</td>
+      <td>Perakende Fiyati</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let product of products">
+      <td>{{ product.id }}-</td>
+      <td>{{ product.brand }}</td>
+      <td>{{ product.name }}</td>
+      <td>{{ product.categoryId }}</td>
+      <td>{{ product.wholesalePrice }}₺</td>
+      <td>{{ product.retailPrice }}₺</td>
+    </tr>
+  </tbody>
 </table>

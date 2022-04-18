@@ -5,7 +5,7 @@ export interface Product{
   brand:string;
   description:string;
   unit:string;
-  wholesaleprice:number;
+  wholesalePrice:number;
   retailPrice:number;
   minQuantityForWholesale:number;
   stockAmount:number;
