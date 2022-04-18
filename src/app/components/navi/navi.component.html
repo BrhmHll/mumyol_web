@@ -1,29 +1,83 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar scroll</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand" href="/" style="font-weight: bolder"
+      >MumYol Admin Panel</a
+    >
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarScroll"
+      aria-controls="navbarScroll"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarScroll">
-      <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+      <ul
+        class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll"
+        style="--bs-scroll-height: 100px"
+      >
+        <li class="nav-item" style="margin-left: 10px;">
+          <a [class]="getNavButtonClass('/home')" aria-current="page" href="/home"
+            >Home</a
+          >
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
+          <a [class]="getNavButtonClass('/products')" href="/products"
+            >Ürünler</a
+          >
+        </li>
+        <li class="nav-item">
+          <a [class]="getNavButtonClass('/customers')" href="/customers"
+            >Müşteriler</a
+          >
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="navbarScrollingDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
             Link
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
             <li><a class="dropdown-item" href="#">Action</a></li>
             <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
+            <li><hr class="dropdown-divider" /></li>
             <li><a class="dropdown-item" href="#">Something else here</a></li>
           </ul>
         </li>
+        <!-- <li
+        _ngcontent-fae-c3=""
+        class="dropdown nav-item"
+        dropdown=""
+        placement="bottom left"
+      >
+        <a
+          _ngcontent-fae-c3=""
+          class="nav-link dropdown-toggle"
+          data-toggle="dropdown"
+          dropdowntoggle=""
+          href="#"
+          aria-haspopup="true"
+          ><div _ngcontent-fae-c3="" class="photo">
+            <img
+              _ngcontent-fae-c3=""
+              alt="Profile Photo"
+              src="https://demos.creative-tim.com/black-dashboard-pro-angular/assets/img/mike.jpg"
+            />
+          </div>
+          <b _ngcontent-fae-c3="" class="caret d-none d-lg-block d-xl-block"></b>
+          <p _ngcontent-fae-c3="" class="d-lg-none">Log out</p></a
+        >
+      </li> -->
       </ul>
     </div>
+
   </div>
 </nav>

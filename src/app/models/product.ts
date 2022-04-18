@@ -1,6 +1,9 @@
+import { ProductImage } from "./productImage";
+
 export interface Product{
   id:number;
   categoryId:number;
+  categoryName:string;
   name:string;
   brand:string;
   description:string;
@@ -10,5 +13,5 @@ export interface Product{
   minQuantityForWholesale:number;
   stockAmount:number;
   isActive:boolean;
-  ImagePaths:string[]
+  imagePaths:string[]
 }

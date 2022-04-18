@@ -2,25 +2,69 @@
   <span class="visually-hidden">Loading...</span>
 </div>
 
-<table *ngIf="dataLoaded == true" class="table">
-  <thead>
-    <tr>
-      <td>Id</td>
-      <td>Marka</td>
-      <td>Urun Adi</td>
-      <td>Kategori Id</td>
-      <td>Toptan Fiyati</td>
-      <td>Perakende Fiyati</td>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let product of products">
-      <td>{{ product.id }}-</td>
-      <td>{{ product.brand }}</td>
-      <td>{{ product.name }}</td>
-      <td>{{ product.categoryId }}</td>
-      <td>{{ product.wholesalePrice }}₺</td>
-      <td>{{ product.retailPrice }}₺</td>
-    </tr>
-  </tbody>
-</table>
+<div *ngIf="dataLoaded == true">
+  <br>
+  <h3>Ürünler</h3>
+  <form class="" action="" (keyup.enter)="search()">
+    <div class="d-flex">
+      <input [ngModelOptions]="{standalone: true}" class="form-control" type="text" [(ngModel)]="searchKey" placeholder="Aramak istediğiniz ürünün adını veya markasını giriniz..." aria-label="Ürün Ara" id="searchKey">
+      <button (click)="search()" name="searchKey" [class]="getSearchProductButtonClass()" type="submit" style="margin-left: 10px;" href="/products/category/0">Ara</button>
+    </div>
+  </form>
+
+  <!-- <div *ngIf="searchKey.length > 2" class="alert alert-success">
+    {{searchKey}} aradınız...
+  </div> -->
+  <table class="table">
+    <thead>
+      <tr>
+        <td>Resim</td>
+        <td>Marka</td>
+        <td>Urun Adi</td>
+        <td>Kategori</td>
+        <td>Perakende Fiyati</td>
+        <td>
+          Toptan İçin <br />
+          Minimum Adet
+        </td>
+        <td>Toptan Fiyati</td>
+        <td>
+          Toptan <br />
+          İndirim Oranı
+        </td>
+        <td>Stok Adedi</td>
+      </tr>
+    </thead>
+    <tbody>                                                                     <!--- | searchKey:searchKey --->
+      <tr (click)="goProductDetailPage(product)" *ngFor="let product of products" [class]="getProductClass(product)">
+        <td>
+          <div class="text-center">
+            <img
+              class="d-flex rounded"
+              width="80"
+              src="{{apiUrl}}{{ product.imagePaths[0] }}"
+              alt="{{ product.name }}"
+            />
+          </div>
+        </td>
+        <td>
+          {{ product.brand }}
+          <!-- <a href="https://www.google.com/search?q={{product.brand}}" target="_blank" rel="noopener noreferrer" class="btn btn-info">{{ product.brand }}</a> -->
+        </td>
+        <td>{{ product.name }}</td>
+        <td>{{ product.categoryName }}</td>
+        <td>{{ product.retailPrice | currency }}</td>
+        <td>{{ product.minQuantityForWholesale }}</td>
+        <td>{{ product.wholesalePrice | currency }}</td>
+        <td>
+          %{{
+            product.wholesalePrice
+              | calculateDiscount: product.retailPrice
+              | number: ".2-2"
+          }}
+        </td>
+        <td>{{ product.stockAmount }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

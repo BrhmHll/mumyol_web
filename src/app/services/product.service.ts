@@ -17,4 +17,9 @@ export class ProductService {
     let newPath = this.apiUrl + "Products/getproductdetailsbycategoryid?categoryId=" + categoryId;
     return this.httpClient.get<ListResponseModel<Product>>(newPath);
   }
+
+  getProductsBySearchKey(searchKey:string = ""):Observable<ListResponseModel<Product>>{
+    let newPath = this.apiUrl + "Products/searchall?searchKey=" + searchKey;
+    return this.httpClient.get<ListResponseModel<Product>>(newPath);
+  }
 }
