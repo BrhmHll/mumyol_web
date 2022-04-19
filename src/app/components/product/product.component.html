@@ -3,12 +3,29 @@
 </div>
 
 <div *ngIf="dataLoaded == true">
-  <br>
+  <br />
   <h3>Ürünler</h3>
   <form class="" action="" (keyup.enter)="search()">
     <div class="d-flex">
-      <input [ngModelOptions]="{standalone: true}" class="form-control" type="text" [(ngModel)]="searchKey" placeholder="Aramak istediğiniz ürünün adını veya markasını giriniz..." aria-label="Ürün Ara" id="searchKey">
-      <button (click)="search()" name="searchKey" [class]="getSearchProductButtonClass()" type="submit" style="margin-left: 10px;" href="/products/category/0">Ara</button>
+      <input
+        [ngModelOptions]="{ standalone: true }"
+        class="form-control"
+        type="text"
+        [(ngModel)]="searchKey"
+        placeholder="Aramak istediğiniz ürünün adını veya markasını giriniz..."
+        aria-label="Ürün Ara"
+        id="searchKey"
+      />
+      <button
+        (click)="search()"
+        name="searchKey"
+        [class]="getSearchProductButtonClass()"
+        type="submit"
+        style="margin-left: 10px"
+        href="/products/category/0"
+      >
+        Ara
+      </button>
     </div>
   </form>
 
@@ -22,6 +39,7 @@
         <td>Marka</td>
         <td>Urun Adi</td>
         <td>Kategori</td>
+        <td>Alis Fiyati</td>
         <td>Perakende Fiyati</td>
         <td>
           Toptan İçin <br />
@@ -29,20 +47,28 @@
         </td>
         <td>Toptan Fiyati</td>
         <td>
-          Toptan <br />
-          İndirim Oranı
+           Kar
+          <br />Perakende / Toptan
         </td>
+        <td>Geri Odeme <br>Orani</td>
+        <td>Geri Odeme <br> Perakende / Toptan</td>
+        <td>Net Kar <br> Perakende / Toptan</td>
         <td>Stok Adedi</td>
       </tr>
     </thead>
-    <tbody>                                                                     <!--- | searchKey:searchKey --->
-      <tr (click)="goProductDetailPage(product)" *ngFor="let product of products" [class]="getProductClass(product)">
+    <tbody>
+      <!--- | searchKey:searchKey --->
+      <tr
+        (click)="goProductDetailPage(product)"
+        *ngFor="let product of products"
+        [class]="getProductClass(product)"
+      >
         <td>
           <div class="text-center">
             <img
               class="d-flex rounded"
               width="80"
-              src="{{apiUrl}}{{ product.imagePaths[0] }}"
+              src="{{ apiUrl }}{{ product.imagePaths[0] }}"
               alt="{{ product.name }}"
             />
           </div>
@@ -53,16 +79,19 @@
         </td>
         <td>{{ product.name }}</td>
         <td>{{ product.categoryName }}</td>
-        <td>{{ product.retailPrice | currency }}</td>
+        <td>₺{{ product.purchasePrice }}</td>
+        <td>₺{{ product.retailPrice }}</td>
         <td>{{ product.minQuantityForWholesale }}</td>
-        <td>{{ product.wholesalePrice | currency }}</td>
+        <td>₺{{ product.wholesalePrice }}</td>
         <td>
-          %{{
-            product.wholesalePrice
-              | calculateDiscount: product.retailPrice
-              | number: ".2-2"
+          ₺{{ (product.retailPrice - product.purchasePrice) | number : '1.2-2' }}
+          <br>
+          / ₺{{ (product.wholesalePrice - product.purchasePrice) | number : '1.2-2'
           }}
         </td>
+        <td>{{ product.payBackRate }}%  </td>
+        <td>₺{{ ((product.payBackRate / 100) * (product.retailPrice - product.purchasePrice)) | number : '1.2-2'}} <br> / ₺{{( (product.payBackRate / 100) * (product.wholesalePrice - product.purchasePrice) ) | number : '1.2-2'}}</td>
+        <td>₺{{ ((product.retailPrice - product.purchasePrice) - (product.payBackRate / 100) * (product.retailPrice - product.purchasePrice) ) | number : '1.2-2'}} <br> / ₺{{((product.wholesalePrice - product.purchasePrice) - (product.payBackRate / 100) * (product.wholesalePrice - product.purchasePrice) ) | number : '1.2-2'}}</td>
         <td>{{ product.stockAmount }}</td>
       </tr>
     </tbody>

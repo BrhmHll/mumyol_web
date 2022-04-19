@@ -8,10 +8,20 @@ import { ListResponseModel } from '../models/listResponseModel';
 })
 export class CategoryService {
 
-  apiUrl = "http://31.223.4.9:5000/api/Categories/getall";
+  apiUrl = "http://31.223.4.9:5000/api/";
   constructor(private httpClient:HttpClient) { }
 
   getCategories(){
-    return this.httpClient.get<ListResponseModel<Category>>(this.apiUrl);
+    let newPath = this.apiUrl + "Categories/getall";
+    return this.httpClient.get<ListResponseModel<Category>>(newPath);
+  }
+  addCategory(categoryName:string){
+    let newPath = this.apiUrl + "Categories/add";
+    // this.httpClient.post{
+    //   url: newPath
+    //   observe: {
+
+    //   }
+    // };
   }
 }

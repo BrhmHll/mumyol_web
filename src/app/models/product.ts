@@ -13,5 +13,7 @@ export interface Product{
   minQuantityForWholesale:number;
   stockAmount:number;
   isActive:boolean;
-  imagePaths:string[]
+  imagePaths:string[];
+  payBackRate:number;
+  purchasePrice:number;
 }

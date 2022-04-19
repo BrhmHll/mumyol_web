@@ -35,7 +35,6 @@ export class ProductComponent implements OnInit {
   }
 
   getProductClass(product:Product){
-    console.log(this.searchKey);
     if (product.stockAmount < 10) {
       return "table-danger button";
     }else if(product.stockAmount < 50){
