@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { Category } from 'src/app/models/category';
 import { CategoryService } from 'src/app/services/category.service';
 
@@ -12,7 +13,9 @@ export class CategoryComponent implements OnInit {
   dataLoaded:boolean = false;
   categories:Category[] = [];
   currentCategory:Category = {id:0, name:"Butun Urunler", topCategoryId: 3}
-  constructor(private categoryService:CategoryService) { }
+  categoryNameForAdd = "";
+  categoryNameForAddClicked = false;
+  constructor(private categoryService:CategoryService, private toastrService:ToastrService) { }
 
   ngOnInit(): void {
     this.getCategories();
@@ -39,6 +42,21 @@ export class CategoryComponent implements OnInit {
     }
     else{
       return "list-group-item list-group-item-action"
+    }
+  }
+
+  addCategory(){
+    if (this.categoryNameForAddClicked) {
+      this.categoryService.addCategory(this.categoryNameForAdd).subscribe(response => {
+        if (response.success) {
+          this.categoryNameForAddClicked = false;
+          this.getCategories();
+        } else {
+          this.toastrService.error(response.message, "Kategori Eklenemedi");
+        }
+      });
+    }else{
+      this.categoryNameForAddClicked = true;
     }
   }
 }

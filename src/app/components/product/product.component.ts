@@ -3,6 +3,7 @@ import { Product } from 'src/app/models/product';
 import { HttpClient } from '@angular/common/http'
 import { ProductService } from 'src/app/services/product.service';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-product',
@@ -16,7 +17,7 @@ export class ProductComponent implements OnInit {
   searchKey = "";
   apiUrl = "http://31.223.4.9:5001"; //resim server
 
-  constructor(private productService:ProductService, private activatedRoute:ActivatedRoute) { }
+  constructor(private productService:ProductService, private activatedRoute:ActivatedRoute, private toastrService:ToastrService) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
@@ -45,6 +46,7 @@ export class ProductComponent implements OnInit {
   }
 
   goProductDetailPage(product:Product){
+    this.toastrService.success("Urun detayina gidiliyor...", product.name);
     console.log(product.name)
   }
 

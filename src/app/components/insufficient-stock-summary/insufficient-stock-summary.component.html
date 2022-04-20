@@ -1,0 +1,43 @@
+<li class="nav-item dropdown">
+  <a
+    (click)="checkInsufficientStocks()"
+    class="nav-link dropdown-toggle"
+    href="#"
+    id="navbarScrollingDropdown"
+    role="button"
+    data-bs-toggle="dropdown"
+    aria-expanded="false"
+  >
+    Yetersiz Stoklar
+    <span *ngIf="insufficientStocks.length > 0" class="badge bg-danger">
+      {{ insufficientStocks.length }}
+    </span>
+  </a>
+  <ul
+    *ngIf="insufficientStocks.length > 0"
+    class="dropdown-menu btn-lg"
+    aria-labelledby="navbarScrollingDropdown"
+  >
+    <li>
+      <a
+        *ngFor="let insufficientStock of insufficientStocks"
+        class="dropdown-item btn-lg"
+        href="/products/{{insufficientStock.productId}}"
+        title=" {{ insufficientStock.requiredStock - insufficientStock.stockAmount }}x {{insufficientStock.productName}}"
+        >
+        <div class="row" style="font-size: medium;">
+          <div class="col-md-4">
+            <span *ngIf="insufficientStocks.length > 0" class="badge bg-secondary">
+              {{ insufficientStock.requiredStock - insufficientStock.stockAmount }}
+            </span>
+
+          </div>
+          <div class="col-md-8">
+            {{ insufficientStock.productName | cutString:10 }}
+          </div>
+        </div>
+        </a
+      >
+    </li>
+  </ul>
+</li>

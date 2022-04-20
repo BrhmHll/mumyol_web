@@ -35,6 +35,7 @@
   <table class="table">
     <thead>
       <tr>
+        <td>Id</td>
         <td>Resim</td>
         <td>Marka</td>
         <td>Urun Adi</td>
@@ -59,15 +60,16 @@
     <tbody>
       <!--- | searchKey:searchKey --->
       <tr
-        (click)="goProductDetailPage(product)"
         *ngFor="let product of products"
         [class]="getProductClass(product)"
       >
+      <td><button (click)="goProductDetailPage(product)" type="button" class="btn btn-primary" style="width: 80px;">{{product.id}}</button></td>
         <td>
           <div class="text-center">
             <img
               class="d-flex rounded"
-              width="80"
+              width="100"
+              height="50"
               src="{{ apiUrl }}{{ product.imagePaths[0] }}"
               alt="{{ product.name }}"
             />

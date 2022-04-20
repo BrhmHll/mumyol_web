@@ -1,16 +1,32 @@
 <br>
-<h2>
-  Kategoriler
-</h2>
+
 <div *ngIf="dataLoaded == false" class="spinner-border" role="status">
   <span class="visually-hidden">Loading...</span>
 </div>
 
 <div *ngIf="dataLoaded==true" class="list-group">
-
+  <h2>
+    Kategoriler
+  </h2>
   <button (click)="setCurrentCategory(category)"
   routerLink="/products/category/{{category.id}}"
   *ngFor="let category of categories"
    type="button"
    [class]="getCurrentCategoryClass(category)">{{category.name}}</button>
+   <div *ngIf="categoryNameForAddClicked" class="list-group-item">
+    <form class="" action="" (keyup.enter)="addCategory()">
+      <input
+          [ngModelOptions]="{ standalone: true }"
+          class="form-control"
+          type="text"
+          [(ngModel)]="categoryNameForAdd"
+          placeholder="Kategori Adi giriniz..."
+          aria-label="Yeni Kategori Adi"
+          id="categoryNameForAdd"
+        />
+    </form>
+  </div>
+   <button
+    type="button"
+    class="list-group-item list-group-item-success" (click)="addCategory()">Kategori Ekle</button>
 </div>
