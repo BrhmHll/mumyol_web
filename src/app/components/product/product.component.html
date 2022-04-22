@@ -6,27 +6,36 @@
   <br />
   <h3>Ürünler</h3>
   <form class="" action="" (keyup.enter)="search()">
-    <div class="d-flex">
-      <input
-        [ngModelOptions]="{ standalone: true }"
-        class="form-control"
-        type="text"
-        [(ngModel)]="searchKey"
-        placeholder="Aramak istediğiniz ürünün adını veya markasını giriniz..."
-        aria-label="Ürün Ara"
-        id="searchKey"
-      />
-      <button
-        (click)="search()"
-        name="searchKey"
-        [class]="getSearchProductButtonClass()"
-        type="submit"
-        style="margin-left: 10px"
-        href="/products/category/0"
-      >
-        Ara
-      </button>
-    </div>
+   <div class="row" style="margin-bottom: 30px;">
+     <div class="col-md-10">
+      <div class="d-flex">
+        <input
+          [ngModelOptions]="{ standalone: true }"
+          class="form-control"
+          type="text"
+          [(ngModel)]="searchKey"
+          placeholder="Aramak istediğiniz ürünün adını veya markasını giriniz..."
+          aria-label="Ürün Ara"
+          id="searchKey"
+        />
+        <button
+          (click)="search()"
+          name="searchKey"
+          [class]="getSearchProductButtonClass()"
+          type="submit"
+          style="margin-left: 10px; width: 100px;"
+          href="/products/category/0"
+        >
+          Ara
+        </button>
+      </div>
+     </div>
+
+     <div class="col-md-2">
+      <button type="button" class="btn btn-primary" routerLink="/products/add">Ürün Ekle</button>
+
+     </div>
+   </div>
   </form>
 
   <!-- <div *ngIf="searchKey.length > 2" class="alert alert-success">
@@ -63,7 +72,7 @@
         *ngFor="let product of products"
         [class]="getProductClass(product)"
       >
-      <td><button (click)="goProductDetailPage(product)" type="button" class="btn btn-primary" style="width: 80px;">{{product.id}}</button></td>
+      <td><a (click)="goProductDetailPage(product)" type="button" class="btn btn-primary" style="width: 80px;" href="/products/update/{{product.id}}">{{product.id}}</a></td>
         <td>
           <div class="text-center">
             <img

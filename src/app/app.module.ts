@@ -19,6 +19,7 @@ import { CutStringPipe } from './pipes/cut-string.pipe';
 import { ProductAddComponent } from './components/product-add/product-add.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { ProductUpdateComponent } from './components/product-update/product-update.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     InsufficientStockSummaryComponent,
     CutStringPipe,
     ProductAddComponent,
-    LoginComponent
+    LoginComponent,
+    ProductUpdateComponent
   ],
   imports: [
     BrowserModule,
