@@ -14,6 +14,7 @@ export class ProductComponent implements OnInit {
 
   products:Product[] = [];
   dataLoaded:boolean = false;
+  showDetail:boolean = false;
   searchKey = "";
   apiUrl = "http://31.223.4.9:5001"; //resim server
 
@@ -25,6 +26,38 @@ export class ProductComponent implements OnInit {
     });
   }
 
+  setShowDetail(){
+    this.showDetail = !this.showDetail;
+    // this.products.sort(( p1, p2 ) => {
+    //   if (p1.name.toLocaleLowerCase() > p2.name.toLocaleLowerCase()) {
+    //     return 1;
+    // }
+
+    // if (p1.name.toLocaleLowerCase() < p2.name.toLocaleLowerCase()) {
+    //     return -1;
+    // }
+
+    // return 0;
+    // });
+
+    //Turkce karaktere gore sorting
+    // this.products.sort((a,b) => {
+    //   var atitle = a.name;
+    //   var btitle = b.name;
+    //   var alfabe = "AaBbCcÇçDdEeFfGgĞğHhIıİiJjKkLlMmNnOoÖöPpQqRrSsŞşTtUuÜüVvWwXxYyZz0123456789";
+    //   if (atitle.length === 0 || btitle.length === 0) {
+    //       return atitle.length - btitle.length;
+    //   }
+    //   for(var i=0;i<atitle.length && i<btitle.length;i++){
+    //       var ai = alfabe.indexOf(atitle[i]);
+    //       var bi = alfabe.indexOf(btitle[i]);
+    //       if (ai !== bi) {
+    //           return ai - bi;
+    //       }
+    //   }
+    //   return 0;
+    // });
+  }
 
   getProductsByCategoryId(categoryId:number){
     this.dataLoaded =false;

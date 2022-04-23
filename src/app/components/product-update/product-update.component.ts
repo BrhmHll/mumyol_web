@@ -7,6 +7,7 @@ import { Product } from 'src/app/models/product';
 import { ProductImage } from 'src/app/models/productImage';
 import { CategoryService } from 'src/app/services/category.service';
 import { ProductService } from 'src/app/services/product.service';
+import { InsufficientStockSummaryComponent } from '../insufficient-stock-summary/insufficient-stock-summary.component';
 
 @Component({
   selector: 'app-product-update',
@@ -14,11 +15,11 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./product-update.component.css'],
 })
 export class ProductUpdateComponent implements OnInit {
-  apiUrl = "http://31.223.4.9:5001"; //resim server
+  apiUrl = 'http://31.223.4.9:5001'; //resim server
   productUpdateForm: FormGroup = new FormGroup({});
   categories: Category[] = [];
   productImages: ProductImage[] = [];
-  addCount:number[]=[];
+  addCount: number[] = [];
   product: Product = {
     id: 0,
     brand: '',
@@ -45,45 +46,47 @@ export class ProductUpdateComponent implements OnInit {
     private toastrService: ToastrService,
     private categoryService: CategoryService,
     private productService: ProductService,
-    private activatedRoute:ActivatedRoute
+    private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    this.checkToastShow();
     this.getCategories();
-    this.activatedRoute.params.subscribe(params => {
-      this.getProduct(params["productId"]);
+    this.activatedRoute.params.subscribe((params) => {
+      this.getProduct(params['productId']);
     });
     this.createProductAddForm();
   }
 
-  getProduct(productId:number){
-    this.productService.getProduct(productId).subscribe(data => {
-      if (data.success) {
-        this.product = data.data;
-        this.getImages(productId);
+  getProduct(productId: number) {
+    this.productService.getProduct(productId).subscribe(
+      (data) => {
+        if (data.success) {
+          this.product = data.data;
+          this.getImages(productId);
+        } else {
+          this.toastrService.error('Ürün bulunamadı!');
+        }
+      },
+      (error) => {
+        this.toastrService.error(error.error.message);
       }
-      else{
-        this.toastrService.error("Ürün bulunamadı!");
-      }
-    }, error =>{
-      this.toastrService.error(error.error.message);
-    });
+    );
   }
 
-  getImages(productId:number){
-    this.productService.getProductImages(productId).subscribe(data => {
-      console.log(data)
+  getImages(productId: number) {
+    this.productService.getProductImages(productId).subscribe((data) => {
+      console.log(data);
       if (data.success) {
         this.productImages = data.data;
         this.addCount = [];
         for (let i = data.data.length + 1; i < 5; i++) {
           this.addCount.push(i);
         }
+      } else {
+        this.toastrService.error('Ürün resimleri bulunamadı!');
       }
-      else{
-        this.toastrService.error("Ürün resimleri bulunamadı!");
-      }
-    })
+    });
   }
 
   getCategories() {
@@ -116,7 +119,8 @@ export class ProductUpdateComponent implements OnInit {
       this.productService.updateProduct(this.product).subscribe(
         (data) => {
           if (data.success) {
-            this.toastrService.success('Ürün Güncellendi!', 'Başarılı');
+            window.location.href =
+              window.location.pathname + '?updateSuccess=1';
           } else {
             this.toastrService.error('Hatalı veri girişi!', 'Dikkat');
           }
@@ -137,28 +141,34 @@ export class ProductUpdateComponent implements OnInit {
     }
   }
 
-  addImage(event: any) {
-    let file:File = event.target.files[0];
-    if (file && file.name != '') {
-      this.productService
-        .addProductImage(file, this.product.id)
-        .subscribe(
-          (response) => {
-            if (response.success) {
-              this.toastrService.success(file.name, 'Başarılı');
-              this.getImages(this.product.id);
-            } else {
-              this.toastrService.success(file.name, 'Hata');
-            }
-          },
-          (responseError) => {
-            this.toastrService.success(file.name, 'Hata');
-          }
-        );
+  checkToastShow() {
+    const { search } = window.location;
+    const deleteSuccess = new URLSearchParams(search).get('updateSuccess');
+    if (deleteSuccess === '1') {
+      this.toastrService.success('Ürün Güncellendi!', 'Başarılı');
     }
   }
 
-  deleteImage(imageId:number){
+  addImage(event: any) {
+    let file: File = event.target.files[0];
+    if (file && file.name != '') {
+      this.productService.addProductImage(file, this.product.id).subscribe(
+        (response) => {
+          if (response.success) {
+            this.toastrService.success(file.name, 'Başarılı');
+            this.getImages(this.product.id);
+          } else {
+            this.toastrService.success(file.name, 'Hata');
+          }
+        },
+        (responseError) => {
+          this.toastrService.success(file.name, 'Hata');
+        }
+      );
+    }
+  }
+
+  deleteImage(imageId: number) {
     this.productService.deleteProductImageByImageId(imageId).subscribe(
       (data) => {
         if (data.success) {

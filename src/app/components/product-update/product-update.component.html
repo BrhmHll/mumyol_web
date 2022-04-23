@@ -53,33 +53,26 @@
               <label for="stockAmount">Stok Adedi</label>
             </div>
             <div class="container">
-              <div class="row">
-                <div class="col-md-3" *ngFor="let productImage of productImages; let i = index">
-                  <button type="button" class="btn btn-danger" (click)="deleteImage(productImage.id)">Resmi Sil</button>
-                  <div class="text-center">
-                    <img
-                      class="d-flex rounded"
-                      width="250"
-                      height="150"
-                      src="{{ apiUrl }}{{ productImages[i].imagePath }}"
-                      alt="{{ product.name }}"
-                    />
-                  </div>
-                </div>
-                <!-- <div class="col-md-9">
-                  <label for="image{{i+1}}">Güncellemek için dosya seçiniz...</label>
-                  <div class="input-group mb-3">
-                    <input type="file" accept="image/*" (change)="selectUpdateImage($event, i+1)" class="form-control" id="image{{i+1}}" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
-                  </div>
-                  <button type="button" class="btn btn-danger" (click)="deleteImage(productImage.id)">Resmi Sil</button>
-                </div> -->
+              <div class="row" *ngFor="let productImage of productImages; let i = index">
+               <div class="card" style="margin-top: 1em; width: 30em;">
+                <img
+                class="card-img-top"
+                src="{{ apiUrl }}{{ productImages[i].imagePath }}"
+                alt="{{ product.name }}"
+              />
+                <button type="button" class="btn btn-danger" (click)="deleteImage(productImage.id)" style="margin-bottom: 1em;">Resmi Sil</button>
+
+               </div>
               </div>
-              <div *ngFor="let i of addCount">
-                <div class="input-group mb-3">
-                  <input type="file" accept="image/*" (change)="addImage($event)" class="form-control" id="image{{i}}" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
-                </div>
+
+            </div>
+           <div class="container" style="margin-top: 1em;">
+            <div *ngFor="let i of addCount">
+              <div class="input-group mb-3">
+                <input type="file" accept="image/*" (change)="addImage($event)" class="form-control" id="image{{i}}" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
               </div>
             </div>
+           </div>
 
         </form>
       </div>

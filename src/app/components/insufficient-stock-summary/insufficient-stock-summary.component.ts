@@ -18,7 +18,7 @@ export class InsufficientStockSummaryComponent implements OnInit {
     this.getInsufficientStock()
   }
 
-  getInsufficientStock(){
+ getInsufficientStock(){
     this.orderService.getInsufficientStocks().subscribe((response) => {
       if (response.success) {
         this.insufficientStocks = response.data;

@@ -22,7 +22,7 @@
       <a
         *ngFor="let insufficientStock of insufficientStocks"
         class="dropdown-item btn-lg"
-        href="/products/{{insufficientStock.productId}}"
+        href="/products/update/{{insufficientStock.productId}}"
         title=" {{ insufficientStock.requiredStock - insufficientStock.stockAmount }}x {{insufficientStock.productName}}"
         >
         <div class="row" style="font-size: medium;">

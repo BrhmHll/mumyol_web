@@ -23,7 +23,6 @@ export class NaviComponent implements OnInit {
     }
     return "nav-link text-wrap";
   }
-
   // setNavButtonClass(selectedNavibutton:string){
   //   this.currentNavibutton = selectedNavibutton;
   // }

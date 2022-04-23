@@ -4,10 +4,13 @@
 
 <div *ngIf="dataLoaded == true">
   <br />
-  <h3>Ürünler</h3>
+  <h3  style="margin: 5px;">Ürünler</h3>
   <form class="" action="" (keyup.enter)="search()">
    <div class="row" style="margin-bottom: 30px;">
-     <div class="col-md-10">
+    <div class="col-md-auto" style="margin: 5px;" >
+      <button type="button" class="btn btn-primary" routerLink="/products/add" style="padding-left: 3em;padding-right: 3em;">Yeni Ürün Ekle</button>
+     </div>
+     <div class="col" style="margin: 5px;">
       <div class="d-flex">
         <input
           [ngModelOptions]="{ standalone: true }"
@@ -30,18 +33,25 @@
         </button>
       </div>
      </div>
-
-     <div class="col-md-2">
-      <button type="button" class="btn btn-primary" routerLink="/products/add">Ürün Ekle</button>
+     <div class="col-md-auto" style="margin: 5px;">
+      <input type="checkbox" class="btn-check" id="btn-check-2-outlined" autocomplete="off" [(ngModel)]="showDetail" [ngModelOptions]="{standalone: true}">
+      <label class="btn btn-outline-success" for="btn-check-2-outlined">Detay Goster</label><br>
+      <!-- <label *ngIf="showDetail===true" class="btn btn-outline-success" for="btn-check-2-outlined">Detay Gosterme</label><br> -->
 
      </div>
+
    </div>
   </form>
 
   <!-- <div *ngIf="searchKey.length > 2" class="alert alert-success">
     {{searchKey}} aradınız...
   </div> -->
-  <table class="table">
+<div class="container">
+  <p *ngIf="!products[0]" style="color: red; font-size: x-large;">Bu kategoriye ait ürün bulunamadı!</p>
+</div>
+  <p *ngIf="products[0]">{{products.length}} adet ürün listeleniyor...</p>
+
+  <table *ngIf="products[0]" class="table">
     <thead>
       <tr>
         <td>Id</td>
@@ -49,20 +59,20 @@
         <td>Marka</td>
         <td>Urun Adi</td>
         <td>Kategori</td>
-        <td>Alis Fiyati</td>
-        <td>Perakende Fiyati</td>
-        <td>
+        <td *ngIf="showDetail">Alis Fiyati</td>
+        <td *ngIf="showDetail">Perakende Fiyati</td>
+        <td *ngIf="showDetail">
           Toptan İçin <br />
           Minimum Adet
         </td>
-        <td>Toptan Fiyati</td>
-        <td>
+        <td *ngIf="showDetail">Toptan Fiyati</td>
+        <td *ngIf="showDetail">
            Kar
           <br />Perakende / Toptan
         </td>
-        <td>Geri Odeme <br>Orani</td>
-        <td>Geri Odeme <br> Perakende / Toptan</td>
-        <td>Net Kar <br> Perakende / Toptan</td>
+        <td *ngIf="showDetail">Geri Odeme <br>Orani</td>
+        <td *ngIf="showDetail">Geri Odeme <br> Perakende / Toptan</td>
+        <td *ngIf="showDetail">Net Kar <br> Perakende / Toptan</td>
         <td>Stok Adedi</td>
       </tr>
     </thead>
@@ -72,17 +82,36 @@
         *ngFor="let product of products"
         [class]="getProductClass(product)"
       >
-      <td><a (click)="goProductDetailPage(product)" type="button" class="btn btn-primary" style="width: 80px;" href="/products/update/{{product.id}}">{{product.id}}</a></td>
+      <td><a (click)="goProductDetailPage(product)" type="button" class="btn btn-primary" style="width: 80px;" href="/products/update/{{product.id}}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+          <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+          <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+        </svg>
+        {{product.id}}</a></td>
         <td>
           <div class="text-center">
             <img
               class="d-flex rounded"
-              width="100"
-              height="50"
+              style="height: 100%; max-height: 100px; max-width: 120px;"
               src="{{ apiUrl }}{{ product.imagePaths[0] }}"
               alt="{{ product.name }}"
             />
           </div>
+          <!-- <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div  class="carousel-item" *ngFor="let imagePath of product.imagePaths; let i = index" style="height: 80px;">
+                <img src="{{ apiUrl }}{{ imagePath }}" class="d-block w-100" alt="{{ product.name }}" style="height: 100%; max-height: 80px; max-width: 120px;">
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div> -->
         </td>
         <td>
           {{ product.brand }}
@@ -90,21 +119,22 @@
         </td>
         <td>{{ product.name }}</td>
         <td>{{ product.categoryName }}</td>
-        <td>₺{{ product.purchasePrice }}</td>
-        <td>₺{{ product.retailPrice }}</td>
-        <td>{{ product.minQuantityForWholesale }}</td>
-        <td>₺{{ product.wholesalePrice }}</td>
-        <td>
+        <td *ngIf="showDetail">₺{{ product.purchasePrice }}</td>
+        <td *ngIf="showDetail">₺{{ product.retailPrice }}</td>
+        <td *ngIf="showDetail">{{ product.minQuantityForWholesale }}</td>
+        <td *ngIf="showDetail">₺{{ product.wholesalePrice }}</td>
+        <td *ngIf="showDetail">
           ₺{{ (product.retailPrice - product.purchasePrice) | number : '1.2-2' }}
           <br>
           / ₺{{ (product.wholesalePrice - product.purchasePrice) | number : '1.2-2'
           }}
         </td>
-        <td>{{ product.payBackRate }}%  </td>
-        <td>₺{{ ((product.payBackRate / 100) * (product.retailPrice - product.purchasePrice)) | number : '1.2-2'}} <br> / ₺{{( (product.payBackRate / 100) * (product.wholesalePrice - product.purchasePrice) ) | number : '1.2-2'}}</td>
-        <td>₺{{ ((product.retailPrice - product.purchasePrice) - (product.payBackRate / 100) * (product.retailPrice - product.purchasePrice) ) | number : '1.2-2'}} <br> / ₺{{((product.wholesalePrice - product.purchasePrice) - (product.payBackRate / 100) * (product.wholesalePrice - product.purchasePrice) ) | number : '1.2-2'}}</td>
+        <td *ngIf="showDetail">{{ product.payBackRate }}%  </td>
+        <td *ngIf="showDetail">₺{{ ((product.payBackRate / 100) * (product.retailPrice - product.purchasePrice)) | number : '1.2-2'}} <br> / ₺{{( (product.payBackRate / 100) * (product.wholesalePrice - product.purchasePrice) ) | number : '1.2-2'}}</td>
+        <td *ngIf="showDetail">₺{{ ((product.retailPrice - product.purchasePrice) - (product.payBackRate / 100) * (product.retailPrice - product.purchasePrice) ) | number : '1.2-2'}} <br> / ₺{{((product.wholesalePrice - product.purchasePrice) - (product.payBackRate / 100) * (product.wholesalePrice - product.purchasePrice) ) | number : '1.2-2'}}</td>
         <td>{{ product.stockAmount }}</td>
       </tr>
     </tbody>
   </table>
+
 </div>

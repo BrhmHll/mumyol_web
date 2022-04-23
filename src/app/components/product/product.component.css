@@ -1,0 +1,8 @@
+/* Style the Image Used to Trigger the Modal */
+img {
+  border-radius: 5px;
+  cursor: default;
+  transition: 0.3s;
+}
+
+img:hover {opacity: 0.7;}
