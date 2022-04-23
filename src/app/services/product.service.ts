@@ -46,8 +46,10 @@ export class ProductService {
     formData.append('Image', image);
     formData.append('productId', productId.toString());
     let newPath = this.apiUrl + "ProductImage/addnewproductimage";
-    return this.httpClient.post<ResponseModel>(newPath, formData
-      )
+    return this.httpClient.post<ResponseModel>(newPath, formData, {
+      reportProgress: true,
+      responseType: 'json'
+    })
   }
 
   getProductImages(productId:number) : Observable<ListResponseModel<ProductImage>>{
