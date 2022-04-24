@@ -7,6 +7,7 @@
     role="button"
     data-bs-toggle="dropdown"
     aria-expanded="false"
+    style="padding: .5em;"
   >
     Yetersiz Stoklar
     <span *ngIf="insufficientStocks.length > 0" class="badge bg-danger">
@@ -26,13 +27,13 @@
         title=" {{ insufficientStock.requiredStock - insufficientStock.stockAmount }}x {{insufficientStock.productName}}"
         >
         <div class="row" style="font-size: medium;">
-          <div class="col-md-4">
+          <div class="col-auto">
             <span *ngIf="insufficientStocks.length > 0" class="badge bg-secondary">
               {{ insufficientStock.requiredStock - insufficientStock.stockAmount }}
             </span>
 
           </div>
-          <div class="col-md-8">
+          <div class="col-auto">
             {{ insufficientStock.productName | cutString:10 }}
           </div>
         </div>

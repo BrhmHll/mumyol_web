@@ -1,66 +1,99 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/" style="font-weight: bolder"
-      >MumYol Admin Panel</a
-    >
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarScroll"
-      aria-controls="navbarScroll"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
+    <a class="navbar-brand" href="#">MumYol Admin Panel</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarScroll">
-      <ul
-        class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll"
-        style="--bs-scroll-height: 150px"
-      >
-        <li class="nav-item" style="margin-left: 10px;">
-          <a [class]="getNavButtonClass('/home')" aria-current="page" href="/home"
-            >Home</a
-          >
-        </li>
-        <li class="nav-item">
-          <a [class]="getNavButtonClass('/products')" href="/products"
-            >Ürünler</a
-          >
-        </li>
-        <li class="nav-item">
-          <a [class]="getNavButtonClass('/customers')" href="/customers"
-            >Müşteriler</a
-          >
-        </li>
-        <app-insufficient-stock-summary></app-insufficient-stock-summary>
-        <!-- <li
-        _ngcontent-fae-c3=""
-        class="dropdown nav-item"
-        dropdown=""
-        placement="bottom left"
-      >
-        <a
-          _ngcontent-fae-c3=""
-          class="nav-link dropdown-toggle"
-          data-toggle="dropdown"
-          dropdowntoggle=""
-          href="#"
-          aria-haspopup="true"
-          ><div _ngcontent-fae-c3="" class="photo">
-            <img
-              _ngcontent-fae-c3=""
-              alt="Profile Photo"
-              src="https://demos.creative-tim.com/black-dashboard-pro-angular/assets/img/mike.jpg"
-            />
-          </div>
-          <b _ngcontent-fae-c3="" class="caret d-none d-lg-block d-xl-block"></b>
-          <p _ngcontent-fae-c3="" class="d-lg-none">Log out</p></a
-        >
-      </li> -->
-      </ul>
-    </div>
 
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <div class="d-flex">
+          <button type="button" class="btn btn-outline-danger" (click)="logout()" style="margin-bottom: 1em; margin-right: 1em;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z"></path>
+              <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"></path>
+            </svg>
+            <!-- Çıkış Yap -->
+          </button>
+
+          <button class="btn btn-outline-dark" style="padding-right: 2em; padding-left: 2em; margin-bottom: 1em;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+          </svg>
+             Profil
+          </button>
+        </div>
+        <div class="d-flex">
+
+        </div>
+
+        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+          <li class="nav-item" style="margin-left: 10px">
+            <a
+            style="padding: .5em;"
+              [class]="getNavButtonClass('/home')"
+              aria-current="page"
+              href="/home"
+              >Home</a
+            >
+          </li>
+          <li class="nav-item">
+            <a [class]="getNavButtonClass('/orders')" href="/orders" style="padding: .5em;"
+              >Siparişler</a
+            >
+          </li>
+          <li class="nav-item">
+            <a [class]="getNavButtonClass('/products')" href="/products" style="padding: .5em;"
+              >Ürünler</a
+            >
+          </li>
+          <li class="nav-item">
+            <a [class]="getNavButtonClass('/users')" href="/users" style="padding: .5em;"
+              >Müşteriler</a
+            >
+          </li>
+          <app-insufficient-stock-summary></app-insufficient-stock-summary>
+
+        </ul>
+
+      </div>
+    </div>
   </div>
+
 </nav>
+
+
+<!-- <li class="nav-item" style="margin-left: 10px">
+  <a
+    [class]="getNavButtonClass('/home')"
+    aria-current="page"
+    href="/home"
+    >Home</a
+  >
+</li>
+<li class="nav-item">
+  <a [class]="getNavButtonClass('/products')" href="/products"
+    >Ürünler</a
+  >
+</li>
+<li class="nav-item">
+  <a [class]="getNavButtonClass('/customers')" href="/customers"
+    >Müşteriler</a
+  >
+</li>
+<app-insufficient-stock-summary></app-insufficient-stock-summary>
+
+
+<button class="btn btn-outline-dark" (click)="logout()">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+</svg>
+Profil
+</button> -->

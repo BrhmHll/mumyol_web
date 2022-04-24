@@ -17,6 +17,7 @@ export class ProductComponent implements OnInit {
   showDetail:boolean = false;
   searchKey = "";
   apiUrl = "http://31.223.4.9:5001"; //resim server
+  searchedKey = "";
 
   constructor(private productService:ProductService, private activatedRoute:ActivatedRoute, private toastrService:ToastrService) { }
 
@@ -83,12 +84,21 @@ export class ProductComponent implements OnInit {
     console.log(product.name)
   }
 
+  searchClose(){
+    this.searchedKey = "";
+    this.searchKey = "";
+    this.activatedRoute.params.subscribe(params => {
+      this.getProductsByCategoryId(params["categoryId"]);
+    });
+  }
+
   search(){
     if (this.searchKey.length < 3)
      return;
     this.dataLoaded =false;
     this.productService.getProductsBySearchKey(this.searchKey).subscribe(response => {
       if(response.success)
+        this.searchedKey = this.searchKey;
         this.products = response.data;
         this.dataLoaded = true;
     })

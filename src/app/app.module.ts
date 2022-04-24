@@ -20,6 +20,8 @@ import { ProductAddComponent } from './components/product-add/product-add.compon
 import { LoginComponent } from './components/login/login.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { ProductUpdateComponent } from './components/product-update/product-update.component';
+import { OrderComponent } from './components/order/order.component';
+import { UserComponent } from './components/user/user.component';
 
 
 @NgModule({
@@ -35,7 +37,9 @@ import { ProductUpdateComponent } from './components/product-update/product-upda
     CutStringPipe,
     ProductAddComponent,
     LoginComponent,
-    ProductUpdateComponent
+    ProductUpdateComponent,
+    OrderComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,

@@ -2,139 +2,282 @@
   <span class="visually-hidden">Loading...</span>
 </div>
 
-<div *ngIf="dataLoaded == true">
-  <br />
-  <h3  style="margin: 5px;">Ürünler</h3>
-  <form class="" action="" (keyup.enter)="search()">
-   <div class="row" style="margin-bottom: 30px;">
-    <div class="col-md-auto" style="margin: 5px;" >
-      <button type="button" class="btn btn-primary" routerLink="/products/add" style="padding-left: 3em;padding-right: 3em;">Yeni Ürün Ekle</button>
-     </div>
-     <div class="col" style="margin: 5px;">
-      <div class="d-flex">
-        <input
-          [ngModelOptions]="{ standalone: true }"
-          class="form-control"
-          type="text"
-          [(ngModel)]="searchKey"
-          placeholder="Aramak istediğiniz ürünün adını veya markasını giriniz..."
-          aria-label="Ürün Ara"
-          id="searchKey"
-        />
-        <button
-          (click)="search()"
-          name="searchKey"
-          [class]="getSearchProductButtonClass()"
-          type="submit"
-          style="margin-left: 10px; width: 100px;"
-          href="/products/category/0"
-        >
-          Ara
-        </button>
-      </div>
-     </div>
-     <div class="col-md-auto" style="margin: 5px;">
-      <input type="checkbox" class="btn-check" id="btn-check-2-outlined" autocomplete="off" [(ngModel)]="showDetail" [ngModelOptions]="{standalone: true}">
-      <label class="btn btn-outline-success" for="btn-check-2-outlined">Detay Goster</label><br>
-      <!-- <label *ngIf="showDetail===true" class="btn btn-outline-success" for="btn-check-2-outlined">Detay Gosterme</label><br> -->
-
-     </div>
-
-   </div>
-  </form>
-
-  <!-- <div *ngIf="searchKey.length > 2" class="alert alert-success">
-    {{searchKey}} aradınız...
-  </div> -->
-<div class="container">
-  <p *ngIf="!products[0]" style="color: red; font-size: x-large;">Bu kategoriye ait ürün bulunamadı!</p>
-</div>
-  <p *ngIf="products[0]">{{products.length}} adet ürün listeleniyor...</p>
-
-  <table *ngIf="products[0]" class="table">
-    <thead>
-      <tr>
-        <td>Id</td>
-        <td>Resim</td>
-        <td>Marka</td>
-        <td>Urun Adi</td>
-        <td>Kategori</td>
-        <td *ngIf="showDetail">Alis Fiyati</td>
-        <td *ngIf="showDetail">Perakende Fiyati</td>
-        <td *ngIf="showDetail">
-          Toptan İçin <br />
-          Minimum Adet
-        </td>
-        <td *ngIf="showDetail">Toptan Fiyati</td>
-        <td *ngIf="showDetail">
-           Kar
-          <br />Perakende / Toptan
-        </td>
-        <td *ngIf="showDetail">Geri Odeme <br>Orani</td>
-        <td *ngIf="showDetail">Geri Odeme <br> Perakende / Toptan</td>
-        <td *ngIf="showDetail">Net Kar <br> Perakende / Toptan</td>
-        <td>Stok Adedi</td>
-      </tr>
-    </thead>
-    <tbody>
-      <!--- | searchKey:searchKey --->
-      <tr
-        *ngFor="let product of products"
-        [class]="getProductClass(product)"
-      >
-      <td><a (click)="goProductDetailPage(product)" type="button" class="btn btn-primary" style="width: 80px;" href="/products/update/{{product.id}}">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-          <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-          <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-        </svg>
-        {{product.id}}</a></td>
-        <td>
-          <div class="text-center">
-            <img
-              class="d-flex rounded"
-              style="height: 100%; max-height: 100px; max-width: 120px;"
-              src="{{ apiUrl }}{{ product.imagePaths[0] }}"
-              alt="{{ product.name }}"
-            />
+<div class="row">
+  <div class="col-md-2">
+    <app-category></app-category>
+  </div>
+  <div class="col-md-10">
+    <div *ngIf="dataLoaded == true">
+      <br />
+      <h3 style="margin: 5px">Ürünler</h3>
+      <form class="" action="" (keyup.enter)="search()">
+        <div class="row" style="margin-bottom: 30px">
+          <div class="col-md-auto" style="margin: 5px">
+            <button
+              type="button"
+              class="btn btn-primary"
+              routerLink="/products/add"
+              style="padding-left: 3em; padding-right: 3em"
+            >
+              Yeni Ürün Ekle
+            </button>
           </div>
-          <!-- <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-              <div  class="carousel-item" *ngFor="let imagePath of product.imagePaths; let i = index" style="height: 80px;">
-                <img src="{{ apiUrl }}{{ imagePath }}" class="d-block w-100" alt="{{ product.name }}" style="height: 100%; max-height: 80px; max-width: 120px;">
-              </div>
+          <div class="col" style="margin: 5px">
+            <div class="d-flex">
+              <input
+                [ngModelOptions]="{ standalone: true }"
+                class="form-control"
+                type="text"
+                [(ngModel)]="searchKey"
+                placeholder="Aramak istediğiniz ürünün adını veya markasını giriniz..."
+                aria-label="Ürün Ara"
+                id="searchKey"
+              />
+              <button
+                (click)="search()"
+                name="searchKey"
+                [class]="getSearchProductButtonClass()"
+                type="submit"
+                style="margin-left: 10px; width: 100px"
+                href="/products/category/0"
+              >
+                Ara
+              </button>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-            </button>
-          </div> -->
-        </td>
-        <td>
-          {{ product.brand }}
-          <!-- <a href="https://www.google.com/search?q={{product.brand}}" target="_blank" rel="noopener noreferrer" class="btn btn-info">{{ product.brand }}</a> -->
-        </td>
-        <td>{{ product.name }}</td>
-        <td>{{ product.categoryName }}</td>
-        <td *ngIf="showDetail">₺{{ product.purchasePrice }}</td>
-        <td *ngIf="showDetail">₺{{ product.retailPrice }}</td>
-        <td *ngIf="showDetail">{{ product.minQuantityForWholesale }}</td>
-        <td *ngIf="showDetail">₺{{ product.wholesalePrice }}</td>
-        <td *ngIf="showDetail">
-          ₺{{ (product.retailPrice - product.purchasePrice) | number : '1.2-2' }}
-          <br>
-          / ₺{{ (product.wholesalePrice - product.purchasePrice) | number : '1.2-2'
-          }}
-        </td>
-        <td *ngIf="showDetail">{{ product.payBackRate }}%  </td>
-        <td *ngIf="showDetail">₺{{ ((product.payBackRate / 100) * (product.retailPrice - product.purchasePrice)) | number : '1.2-2'}} <br> / ₺{{( (product.payBackRate / 100) * (product.wholesalePrice - product.purchasePrice) ) | number : '1.2-2'}}</td>
-        <td *ngIf="showDetail">₺{{ ((product.retailPrice - product.purchasePrice) - (product.payBackRate / 100) * (product.retailPrice - product.purchasePrice) ) | number : '1.2-2'}} <br> / ₺{{((product.wholesalePrice - product.purchasePrice) - (product.payBackRate / 100) * (product.wholesalePrice - product.purchasePrice) ) | number : '1.2-2'}}</td>
-        <td>{{ product.stockAmount }}</td>
-      </tr>
-    </tbody>
-  </table>
+          </div>
+          <div class="col-md-auto" style="margin: 5px">
+            <input
+              type="checkbox"
+              class="btn-check"
+              id="btn-check-2-outlined"
+              autocomplete="off"
+              [(ngModel)]="showDetail"
+              [ngModelOptions]="{ standalone: true }"
+            />
+            <label class="btn btn-outline-success" for="btn-check-2-outlined"
+              >Detay Goster</label
+            ><br />
+            <!-- <label *ngIf="showDetail===true" class="btn btn-outline-success" for="btn-check-2-outlined">Detay Gosterme</label><br> -->
+          </div>
+        </div>
+      </form>
 
+      <!-- <div *ngIf="searchKey.length > 2" class="alert alert-success">
+        {{searchKey}} aradınız...
+      </div> -->
+      <div class="container">
+        <p
+          *ngIf="!products[0] && !searchedKey"
+          style="color: red; font-size: x-large"
+        >
+          Bu kategoriye ait ürün bulunamadı!
+        </p>
+        <p
+          *ngIf="!products[0] && searchedKey"
+          style="color: red; font-size: x-large"
+        >
+          "{{ searchedKey }}" anahtar kelimesi için sonuç bulunamadı!
+        </p>
+        <p *ngIf="products[0] && searchedKey">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-x-circle-fill"
+            viewBox="0 0 16 16"
+            (click)="searchClose()"
+          >
+            <path
+              d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"
+            />
+          </svg>
+
+          "{{ searchedKey }}" anahtar kelimesi için sonuçlar listeleniyor...
+        </p>
+      </div>
+      <p *ngIf="products[0]">{{ products.length }} adet ürün listeleniyor...</p>
+
+      <table *ngIf="products[0]" class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Resim</th>
+            <th scope="col">Marka</th>
+            <th scope="col">Urun Adi</th>
+            <th scope="col">Kategori</th>
+            <th scope="col" *ngIf="showDetail">Alis Fiyati</th>
+            <th scope="col" *ngIf="showDetail">Perakende Fiyati</th>
+            <th scope="col" *ngIf="showDetail">
+              Toptan İçin <br />
+              Minimum Adet
+            </th>
+            <th scope="col" *ngIf="showDetail">Toptan Fiyati</th>
+            <th scope="col" *ngIf="showDetail">
+              Kar
+              <br />Perakende / Toptan
+            </th>
+            <th scope="col" *ngIf="showDetail">Geri Odeme <br />Orani</th>
+            <th scope="col" *ngIf="showDetail">
+              Geri Odeme <br />
+              Perakende / Toptan
+            </th>
+            <th scope="col" *ngIf="showDetail">
+              Net Kar <br />
+              Perakende / Toptan
+            </th>
+            <th scope="col">Stok Adedi</th>
+            <th scope="col">Birim</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!--- | searchKey:searchKey --->
+          <tr
+            *ngFor="let product of products"
+            [class]="getProductClass(product)"
+          >
+            <th>
+              <a
+                (click)="goProductDetailPage(product)"
+                type="button"
+                class="btn btn-primary"
+                style="width: 80px"
+                href="/products/update/{{ product.id }}"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-pencil-square"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"
+                  />
+                  <path
+                    fill-rule="evenodd"
+                    d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
+                  />
+                </svg>
+                {{ product.id }}</a
+              >
+            </th>
+            <td>
+              <div class="text-center">
+                <img
+                  class="d-flex rounded"
+                  style="height: 100%; max-height: 100px; max-width: 120px"
+                  src="{{ apiUrl }}{{ product.imagePaths[0] }}"
+                  alt="{{ product.name }}"
+                />
+              </div>
+              <!-- <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                  <div  class="carousel-item" *ngFor="let imagePath of product.imagePaths; let i = index" style="height: 80px;">
+                    <img src="{{ apiUrl }}{{ imagePath }}" class="d-block w-100" alt="{{ product.name }}" style="height: 100%; max-height: 80px; max-width: 120px;">
+                  </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div> -->
+            </td>
+            <td>
+              {{ product.brand }}
+              <!-- <a href="https://www.google.com/search?q={{product.brand}}" target="_blank" rel="noopener noreferrer" class="btn btn-info">{{ product.brand }}</a> -->
+            </td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.categoryName }}</td>
+            <td *ngIf="showDetail">₺{{ product.purchasePrice }}</td>
+            <td *ngIf="showDetail">₺{{ product.retailPrice }}</td>
+            <td *ngIf="showDetail">{{ product.minQuantityForWholesale }}</td>
+            <td *ngIf="showDetail">₺{{ product.wholesalePrice }}</td>
+            <td *ngIf="showDetail">
+              ₺{{
+                product.retailPrice - product.purchasePrice | number: "1.2-2"
+              }}
+              <br />
+              / ₺{{
+                product.wholesalePrice - product.purchasePrice | number: "1.2-2"
+              }}
+            </td>
+            <td *ngIf="showDetail">{{ product.payBackRate }}%</td>
+            <td *ngIf="showDetail">
+              ₺{{
+                (product.payBackRate / 100) *
+                  (product.retailPrice - product.purchasePrice)
+                  | number: "1.2-2"
+              }}
+              <br />
+              / ₺{{
+                (product.payBackRate / 100) *
+                  (product.wholesalePrice - product.purchasePrice)
+                  | number: "1.2-2"
+              }}
+            </td>
+            <td *ngIf="showDetail">
+              ₺{{
+                product.retailPrice -
+                  product.purchasePrice -
+                  (product.payBackRate / 100) *
+                    (product.retailPrice - product.purchasePrice)
+                  | number: "1.2-2"
+              }}
+              <br />
+              / ₺{{
+                product.wholesalePrice -
+                  product.purchasePrice -
+                  (product.payBackRate / 100) *
+                    (product.wholesalePrice - product.purchasePrice)
+                  | number: "1.2-2"
+              }}
+            </td>
+            <td>{{ product.stockAmount }}</td>
+            <td>{{ product.unit }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
+
+<!--
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Launch demo modal
+</button>
+
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">...</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+ -->

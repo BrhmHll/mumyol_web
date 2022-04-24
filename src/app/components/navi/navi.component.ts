@@ -23,6 +23,10 @@ export class NaviComponent implements OnInit {
     }
     return "nav-link text-wrap";
   }
+
+  logout(){
+    localStorage.removeItem("token");
+  }
   // setNavButtonClass(selectedNavibutton:string){
   //   this.currentNavibutton = selectedNavibutton;
   // }

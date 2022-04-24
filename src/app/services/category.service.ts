@@ -21,7 +21,7 @@ export class CategoryService {
     let category: Category = {
       id : 0,
       name : categoryName,
-      topCategoryId : 3
+      imagePath: ""
     }
 
     let newPath = this.apiUrl + "Categories/add";
@@ -30,5 +30,16 @@ export class CategoryService {
       newPath,
       category
     )
+  }
+
+  addCategoryImage(image:File, categoryId:number){
+    const formData: FormData = new FormData();
+    formData.append('Image', image);
+    formData.append('categoryId', categoryId.toString());
+    let newPath = this.apiUrl + "Categories/modifyimage";
+    return this.httpClient.post<ResponseModel>(newPath, formData, {
+      reportProgress: true,
+      responseType: 'json'
+    });
   }
 }

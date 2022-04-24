@@ -12,7 +12,21 @@
   routerLink="/products/category/{{category.id}}"
   *ngFor="let category of categories"
    type="button"
-   [class]="getCurrentCategoryClass(category)">{{category.name}}</button>
+   [class]="getCurrentCategoryClass(category)">
+
+   <div  *ngIf="currentCategory.id != 0 && currentCategory == category" class="d-flex" >
+    <img
+    (click)="openFileDiolog()"
+      class="img-fluid rounded"
+      src="{{ apiUrl }}{{ category.imagePath }}"
+    />
+    <div class="input-group mb-3" style="display: none;">
+      <input #fileInput type="file" accept="image/*" (change)="addImage($event)" class="" id="image1" aria-label="Upload">
+    </div>
+   </div>
+   {{ category.name }}
+
+   </button>
    <div *ngIf="categoryNameForAddClicked" class="list-group-item">
     <form class="" action="" (keyup.enter)="addCategory()">
       <input

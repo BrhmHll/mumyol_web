@@ -1,0 +1,131 @@
+<div class="card text-center">
+  <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs">
+      <li class="nav-item">
+        <a [class]="getTabClass(1)" aria-current="true" href="/orders/1">Yeni Siparişler</a>
+      </li>
+      <li class="nav-item">
+        <a [class]="getTabClass(2)" aria-current="true" href="/orders/2">Bekleyen Siparişler</a>
+      </li>
+      <li class="nav-item">
+        <a [class]="getTabClass(5)" aria-current="true" href="/orders/5">Tamamlanan Siparişler</a>
+      </li>
+      <li class="nav-item">
+        <a [class]="getTabClass(6)" aria-current="true" href="/orders/6">İptal Edilen Siparişler</a>
+      </li>
+    </ul>
+  </div>
+  <div class="card-body">
+    <div class="container">
+      <div class="col" style="margin: 5px">
+        <div class="d-flex">
+          <input
+            [ngModelOptions]="{ standalone: true }"
+            class="form-control"
+            type="text"
+            [(ngModel)]="searchKey"
+            placeholder="Müşteri ad soyad giriniz..."
+            aria-label="Ürün Ara"
+            id="searchKey"
+          />
+          <!-- <button
+            (click)="search()"
+            name="searchKey"
+            type="submit"
+            style="margin-left: 10px; width: 100px"
+          >
+            Ara
+          </button> -->
+        </div>
+      </div>
+      <!-- <p *ngIf="!products[0] && !searchedKey" style="color: red; font-size: x-large;">Bu kategoriye ait ürün bulunamadı!</p>
+      <p *ngIf="!products[0] && searchedKey" style="color: red; font-size: x-large;">"{{searchedKey}}" anahtar kelimesi için sonuç bulunamadı!</p>
+      <p *ngIf="products[0] && searchedKey" >
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16" (click)="searchClose()">
+          <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
+        </svg>
+
+        "{{searchedKey}}" anahtar kelimesi için sonuçlar listeleniyor...</p> -->
+    </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Kullanıcı</th>
+          <th scope="col">Kullanici Telefon</th>
+          <th scope="col">Kullanici Email</th>
+          <th scope="col">Siparis Tarihi</th>
+          <th scope="col">Toplam Tutar</th>
+          <th scope="col">Geri Odeme</th>
+          <th scope="col">Sipariş Durmu</th>
+          <th *ngIf="selectedTabId == 1" scope="col">Onay</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of orders | searchKey:searchKey" [class]="getRowClass(order)">
+          <th scope="row">{{order.orderId}}</th>
+          <td>{{order.userName}} {{order.userSurname}}</td>
+          <td> {{order.userPhone}} </td>
+          <td> {{order.userEmail}} </td>
+          <td> {{order.createdDate | date:"d/M/yy h:mm:s"}} </td>
+          <td> {{getTotalPrice(order)}} ₺</td>
+          <td> {{order.payBack}} ₺</td>
+          <td > {{getStatusText(order.orderStatus)}}</td>
+          <td *ngIf="order.orderStatus === 1">
+            <button type="button" class="btn btn-success" style="margin-right: .5em;" (click)="setSelectedProcess(order.orderId, 2)" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+              <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"></path>
+            </svg>
+            Onayla
+          </button>
+          <button type="button" class="btn btn-danger" (click)="setSelectedProcess(order.orderId, 6)" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z"></path>
+              <path fill-rule="evenodd" d="M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z"></path>
+            </svg>
+            İptal
+          </button>
+        </td>
+        <td *ngIf="order.orderStatus === 2">
+          <button type="button" class="btn btn-success" style="margin-right: .5em;" (click)="setSelectedProcess(order.orderId, 5)" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+              <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"></path>
+            </svg>
+            Tamamla
+          </button>
+        </td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Sipariş işlem değişikliğini onaylıyor musunuz?</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">{{process.orderId}} No. lu siparişin durumunu onaylıyor musunuz? <br> {{process.statusId == 2 ? "Onaylandı" : process.statusId == 6 ? "İptal" : "Tamamlandı"}} olarak işaretlenecek </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          İptal
+        </button>
+        <button type="button" class="btn btn-primary" (click)="updateOrder()" data-bs-dismiss="modal">Değişiklikleri Kaydet</button>
+      </div>
+    </div>
+  </div>
+</div>

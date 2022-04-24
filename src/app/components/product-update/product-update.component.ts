@@ -76,7 +76,6 @@ export class ProductUpdateComponent implements OnInit {
 
   getImages(productId: number) {
     this.productService.getProductImages(productId).subscribe((data) => {
-      console.log(data);
       if (data.success) {
         this.productImages = data.data;
         this.addCount = [];

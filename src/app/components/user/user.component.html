@@ -1,0 +1,31 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Ad Soyad</th>
+      <th scope="col">Telefon</th>
+      <th scope="col">Email</th>
+      <th scope="col">Bakiye</th>
+      <th scope="col">Adres</th>
+      <th scope="col">Durum</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users">
+      <th scope="row">{{ user.id }}</th>
+      <td>{{ user.firstName }} {{ user.lastName }}</td>
+      <td>+90{{ user.phoneNumber }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.balance }} ₺</td>
+      <td>{{ user.address }}</td>
+      <td>
+        <button
+          type="button"
+          [class]="'btn ' + (user.status ? 'btn-outline-success' : 'btn-outline-danger')"
+        >
+          {{ user.status ? "Aktif" : "Pasif" }}
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
