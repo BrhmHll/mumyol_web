@@ -7,6 +7,7 @@ import { Product } from 'src/app/models/product';
 import { ProductImage } from 'src/app/models/productImage';
 import { CategoryService } from 'src/app/services/category.service';
 import { ProductService } from 'src/app/services/product.service';
+import { environment } from 'src/environments/environment';
 import { InsufficientStockSummaryComponent } from '../insufficient-stock-summary/insufficient-stock-summary.component';
 
 @Component({
@@ -15,7 +16,8 @@ import { InsufficientStockSummaryComponent } from '../insufficient-stock-summary
   styleUrls: ['./product-update.component.css'],
 })
 export class ProductUpdateComponent implements OnInit {
-  apiUrl = 'http://31.223.4.9:5001'; //resim server
+  apiUrl = environment.staticFilesUrl; //resim server
+
   productUpdateForm: FormGroup = new FormGroup({});
   categories: Category[] = [];
   productImages: ProductImage[] = [];

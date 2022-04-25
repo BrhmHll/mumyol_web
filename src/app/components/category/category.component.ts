@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Category } from 'src/app/models/category';
 import { CategoryService } from 'src/app/services/category.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-category',
@@ -13,7 +14,8 @@ export class CategoryComponent implements OnInit {
   dataLoaded:boolean = false;
   categories:Category[] = [];
   currentCategory:Category = {id:0, name:"Butun Urunler", imagePath:""}
-  apiUrl = "http://31.223.4.9:5001"; //resim server
+  apiUrl = environment.staticFilesUrl; //resim server
+
   categoryNameForAdd = "";
   categoryNameForAddClicked = false;
   @ViewChild('fileInput') fileInput: ElementRef | undefined;

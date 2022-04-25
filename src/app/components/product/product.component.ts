@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http'
 import { ProductService } from 'src/app/services/product.service';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-product',
@@ -16,7 +17,7 @@ export class ProductComponent implements OnInit {
   dataLoaded:boolean = false;
   showDetail:boolean = false;
   searchKey = "";
-  apiUrl = "http://31.223.4.9:5001"; //resim server
+  apiUrl = environment.staticFilesUrl; //resim server
   searchedKey = "";
 
   constructor(private productService:ProductService, private activatedRoute:ActivatedRoute, private toastrService:ToastrService) { }
