@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, isDevMode } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment as env } from 'src/environments/environment';
+import { environment as env_prod } from 'src/environments/environment.prod';
 import { DataResponseModel } from '../models/dataResponseModel';
 import { LoginModel } from '../models/loginModel';
 import { TokenModel } from '../models/tokenModel';
@@ -9,7 +11,9 @@ import { TokenModel } from '../models/tokenModel';
   providedIn: 'root',
 })
 export class AuthService {
-  apiUrl = 'http://31.223.4.9:5000/api/';
+
+  apiUrl = isDevMode() ? env.apiUrl : env_prod.apiUrl;
+
   constructor(private httpClient: HttpClient) {}
 
   login(loginModel: LoginModel): Observable<DataResponseModel<TokenModel>> {

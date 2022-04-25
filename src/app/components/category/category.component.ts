@@ -79,6 +79,9 @@ export class CategoryComponent implements OnInit {
         } else {
           this.toastrService.error(response.message, "Kategori Eklenemedi");
         }
+      }, errorResponse => {
+        console.log(errorResponse)
+        this.toastrService.error(errorResponse.error.message, "Kategori Eklenemedi");
       });
     }else{
       this.categoryNameForAddClicked = true;

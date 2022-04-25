@@ -1,6 +1,8 @@
 import { HttpClient, HttpHeaders, HttpParamsOptions } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, isDevMode } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment as env } from 'src/environments/environment';
+import { environment as env_prod } from 'src/environments/environment.prod';
 import { Category } from '../models/category';
 import { ListResponseModel } from '../models/listResponseModel';
 import { ResponseModel } from '../models/ResponseModel';
@@ -10,7 +12,8 @@ import { ResponseModel } from '../models/ResponseModel';
 })
 export class CategoryService {
 
-  apiUrl = "http://31.223.4.9:5000/api/";
+  apiUrl = isDevMode() ? env.apiUrl : env_prod.apiUrl;
+
   constructor(private httpClient:HttpClient) { }
 
   getCategories():Observable<ListResponseModel<Category>>{

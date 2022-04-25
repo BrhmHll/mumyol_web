@@ -1,14 +1,16 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, isDevMode } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ListResponseModel } from '../models/listResponseModel';
 import { UserProfile } from '../models/userProfile';
+import { environment as env } from 'src/environments/environment';
+import { environment as env_prod } from 'src/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  apiUrl = "http://31.223.4.9:5000/api/";
+  apiUrl = isDevMode() ? env.apiUrl : env_prod.apiUrl;
   constructor(private httpClient:HttpClient) { }
 
   getUsers() : Observable<ListResponseModel<UserProfile>>{

@@ -1,11 +1,13 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, isDevMode } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DataResponseModel } from '../models/dataResponseModel';
 import { ListResponseModel } from '../models/listResponseModel';
 import { Product } from '../models/product';
 import { ProductImage } from '../models/productImage';
 import { ResponseModel } from '../models/ResponseModel';
+import { environment as env } from 'src/environments/environment';
+import { environment as env_prod } from 'src/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +15,8 @@ import { ResponseModel } from '../models/ResponseModel';
 export class ProductService {
 
 
-  apiUrl = "http://31.223.4.9:5000/api/";
+  apiUrl = isDevMode() ? env.apiUrl : env_prod.apiUrl;
+
   constructor(private httpClient:HttpClient) { }
 
   getProductsByCategoryId(categoryId:number = 0):Observable<ListResponseModel<Product>>{

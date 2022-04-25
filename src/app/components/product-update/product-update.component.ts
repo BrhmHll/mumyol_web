@@ -161,7 +161,7 @@ export class ProductUpdateComponent implements OnInit {
           }
         },
         (responseError) => {
-          this.toastrService.success(file.name, 'Hata');
+          this.toastrService.error(file.name, 'Hata');
         }
       );
     }
