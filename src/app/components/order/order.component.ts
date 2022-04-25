@@ -13,12 +13,28 @@ export class OrderComponent implements OnInit {
 
   constructor(private activatedRoute:ActivatedRoute, private orderService:OrderService, private toastrService:ToastrService) { }
 
+  apiUrl = "http://31.223.4.9:5000";
   selectedTabId:number = 1;
   orders:OrderDetails[] = [];
   searchKey:string = "";
   process = {
     "orderId" : 0,
     "statusId" : 0
+  }
+  selectedOrder:OrderDetails = {
+    orderId: 0,
+    userId: 0,
+    userName: '',
+    userSurname: '',
+    userPhone: '',
+    userEmail: '',
+    payBack: 0,
+    orderStatus: 0,
+    address: '',
+    createdDate: Date.prototype,
+    orderItems: [],
+    cost: 0,
+    totalPrice: 0
   }
 
   ngOnInit(): void {
@@ -33,6 +49,7 @@ export class OrderComponent implements OnInit {
   setSelectedProcess(orderId:number, statusId:number){
     this.process.orderId = orderId;
     this.process.statusId = statusId;
+    this.orders.forEach(order => order.orderId == orderId ? this.selectedOrder = order : null);
   }
   getTabClass(tabId:number){
     if (this.selectedTabId == tabId) {
@@ -42,12 +59,8 @@ export class OrderComponent implements OnInit {
     }
   }
 
-  getTotalPrice(order:OrderDetails){
-    let totalPrice = 0;
-    order.orderItems.forEach(item => {
-      totalPrice = totalPrice + item.price * item.quantity;
-    });
-    return totalPrice;
+  goProductDetailPage(productName:string){
+    this.toastrService.success("Urun detayina gidiliyor...", productName);
   }
 
   getStatusText(statusId:number){

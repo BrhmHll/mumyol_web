@@ -8,9 +8,10 @@ export interface OrderDetails{
   userPhone:string;
   userEmail:string;
   payBack:number;
+  cost:number;
+  totalPrice:number;
   orderStatus:number;
   address:string;
   createdDate:Date;
   orderItems:OrderItemDetail[];
-  isDetailed:boolean;
 }

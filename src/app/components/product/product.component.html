@@ -12,16 +12,6 @@
       <h3 style="margin: 5px">Ürünler</h3>
       <form class="" action="" (keyup.enter)="search()">
         <div class="row" style="margin-bottom: 30px">
-          <div class="col-md-auto" style="margin: 5px">
-            <button
-              type="button"
-              class="btn btn-primary"
-              routerLink="/products/add"
-              style="padding-left: 3em; padding-right: 3em"
-            >
-              Yeni Ürün Ekle
-            </button>
-          </div>
           <div class="col" style="margin: 5px">
             <div class="d-flex">
               <input
@@ -44,6 +34,16 @@
                 Ara
               </button>
             </div>
+          </div>
+          <div class="col-md-auto" style="margin: 5px">
+            <button
+              type="button"
+              class="btn btn-primary"
+              routerLink="/products/add"
+              style="padding-left: 3em; padding-right: 3em"
+            >
+              Ürün Ekle
+            </button>
           </div>
           <div class="col-md-auto" style="margin: 5px">
             <input

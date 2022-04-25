@@ -82,7 +82,6 @@ export class ProductComponent implements OnInit {
 
   goProductDetailPage(product:Product){
     this.toastrService.success("Urun detayina gidiliyor...", product.name);
-    console.log(product.name)
   }
 
   searchClose(){

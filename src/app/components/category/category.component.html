@@ -5,9 +5,9 @@
 </div>
 
 <div *ngIf="dataLoaded==true" class="list-group">
-  <h2>
+  <h4>
     Kategoriler
-  </h2>
+  </h4>
   <button (click)="setCurrentCategory(category)"
   routerLink="/products/category/{{category.id}}"
   *ngFor="let category of categories"
