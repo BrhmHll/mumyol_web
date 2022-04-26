@@ -17,6 +17,7 @@ export class OrderComponent implements OnInit {
   selectedTabId:number = 1;
   orders:OrderDetails[] = [];
   searchKey:string = "";
+  searchId:string = "";
   process = {
     "orderId" : 0,
     "statusId" : 0
@@ -39,7 +40,7 @@ export class OrderComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
-      if (params["statusId"]) {
+      if (params["statusId"] in [1,2,5,6]) {
         this.selectedTabId = params["statusId"];
       }
       this.getOrdersByStatusId();

@@ -8,8 +8,7 @@ import { ProductComponent } from './components/product/product.component';
 import { UserComponent } from './components/user/user.component';
 import { LoginGuard } from './guards/login.guard';
 
-const routes: Routes = [
-  { path: '', component: ProductComponent , canActivate:[LoginGuard] },
+const routes = [
   { path: 'products', component: ProductComponent , canActivate:[LoginGuard] },
   { path: 'products/category/:categoryId', component: ProductComponent , canActivate:[LoginGuard] },
   { path: 'products/add', component: ProductAddComponent , canActivate:[LoginGuard]},
@@ -17,6 +16,7 @@ const routes: Routes = [
   { path: 'orders/:statusId', component: OrderComponent , canActivate:[LoginGuard]},
   { path: 'orders', component: OrderComponent , canActivate:[LoginGuard]},
   { path: 'users', component: UserComponent , canActivate:[LoginGuard]},
+  // { path: '**' , component: OrderComponent , canActivate:[LoginGuard] },
   // { path: 'login', component: LoginComponent },
 ];
 

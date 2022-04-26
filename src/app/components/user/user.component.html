@@ -14,10 +14,18 @@
     <tr *ngFor="let user of users">
       <th scope="row">{{ user.id }}</th>
       <td>{{ user.firstName }} {{ user.lastName }}</td>
-      <td>+90{{ user.phoneNumber }}</td>
-      <td>{{ user.email }}</td>
+      <td> <a href="tel:+90{{ user.phoneNumber }}">+90{{ user.phoneNumber }}</a></td>
+      <td> <a href="mailto:{{ user.email }}">{{ user.email }}</a> </td>
       <td>{{ user.balance }} ₺</td>
-      <td>{{ user.address }}</td>
+      <td> <a
+        href="https://www.google.com/maps/place/{{
+          user.address
+        }}"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+      {{ user.address }}</a
+      ></td>
       <td>
         <button
           type="button"

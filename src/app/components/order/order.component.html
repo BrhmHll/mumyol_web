@@ -31,11 +31,22 @@
             [ngModelOptions]="{ standalone: true }"
             class="form-control"
             type="text"
+            [(ngModel)]="searchId"
+            placeholder="Sipariş numarası giriniz..."
+            aria-label="Sipariş Ara"
+            id="searchId"
+          />
+          <div style="padding: 1em;"></div>
+          <input
+            [ngModelOptions]="{ standalone: true }"
+            class="form-control"
+            type="text"
             [(ngModel)]="searchKey"
             placeholder="Müşteri ad soyad giriniz..."
             aria-label="Ürün Ara"
             id="searchKey"
           />
+
           <!-- <button
             (click)="search()"
             name="searchKey"
@@ -72,7 +83,7 @@
       </thead>
       <tbody>
         <tr
-          *ngFor="let order of orders | searchKey: searchKey"
+          *ngFor="let order of orders | searchKey: searchKey : searchId"
           [class]="getRowClass(order)"
         >
           <th>{{ order.orderId }}</th>
@@ -324,9 +335,9 @@
                 >
               </td>
               <td style="width: 30%">
-                (S) +{{ item.price }} ₺
+                (S) +{{ item.price  | number: "1.2-2"}} ₺
                 <br />
-                (M) -{{ item.purchasePrice }} ₺
+                (M) -{{ item.purchasePrice  | number: "1.2-2"}} ₺
                 <br />
                 (G) -{{
                   (item.price - item.purchasePrice) * (item.payBackRate / 100)
@@ -364,10 +375,10 @@
                         class="row"
                         style="color: green; font-weight: bolder"
                       >
-                        +{{ selectedOrder.totalPrice }} ₺
+                        +{{ selectedOrder.totalPrice  | number: "1.2-2"}} ₺
                       </div>
                       <div class="row" style="color: red">
-                        -{{ selectedOrder.cost }} ₺
+                        -{{ selectedOrder.cost  | number: "1.2-2"}} ₺
                       </div>
                       <div class="row" style="color: red">
                         -{{ selectedOrder.payBack | number: "1.2-2" }} ₺
@@ -380,7 +391,7 @@
                         {{
                           selectedOrder.totalPrice -
                             selectedOrder.cost -
-                            selectedOrder.payBack
+                            selectedOrder.payBack  | number: "1.2-2"
                         }}
                         ₺
                       </div>

@@ -13,8 +13,9 @@ export class SearchKeyPipe implements PipeTransform {
   //   return searchKey ? value.filter(p => p.name.toLocaleLowerCase().indexOf(searchKey) !== -1) : value;
   // }
 
-  transform(value:OrderDetails[], searchKey: string): OrderDetails[] {
+  transform(value:OrderDetails[], searchKey: string, id: string): OrderDetails[] {
     searchKey = searchKey && searchKey.length > 2 ? searchKey.toLocaleLowerCase() : "";
-    return searchKey ? value.filter(p => (p.userName.toLocaleLowerCase() + " " + p.userSurname.toLocaleLowerCase()).indexOf(searchKey) !== -1) : value;
+    return searchKey ? value.filter(p => (p.userName.toLocaleLowerCase() + " " + p.userSurname.toLocaleLowerCase()).indexOf(searchKey) !== -1) :
+    id ? value.filter(p => p.orderId.toString() == id) : value;
   }
 }
