@@ -17,4 +17,11 @@ export class UserService {
     let newPath = this.apiUrl + "User/getalluserprofile";
     return this.httpClient.get<ListResponseModel<UserProfile>>(newPath);
   }
+
+  setStatusOfUser(userId:number, status:boolean){
+    return this.httpClient.post<ListResponseModel<UserProfile>>( this.apiUrl + "User/updateuserstatus", {
+      "userId" : userId,
+      "status" : status
+    });
+  }
 }

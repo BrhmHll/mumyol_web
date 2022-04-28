@@ -1,3 +1,23 @@
+<div class="d-flex" style="margin-top: 1em; margin-bottom: 0.5em;">
+  <input
+    [ngModelOptions]="{ standalone: true }"
+    class="form-control"
+    type="text"
+    [(ngModel)]="searchKey"
+    placeholder="Aramak istediğiniz müşterinin adı, soyadı, telefonu veya mailini girniz..."
+    aria-label="Ürün Ara"
+    id="searchKey"
+  />
+
+</div>
+
+<p *ngIf="searchKey.length > 2">
+  <button class="btn btn-danger" (click)="searchKey = ''">
+    X
+  </button>
+  "{{searchKey}}" için sonuçlar gösteriliyor...
+</p>
+
 <table class="table">
   <thead>
     <tr>
@@ -8,10 +28,11 @@
       <th scope="col">Bakiye</th>
       <th scope="col">Adres</th>
       <th scope="col">Durum</th>
+      <th scope="col">İşlemler</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let user of users">
+    <tr *ngFor="let user of users | userSearch:searchKey">
       <th scope="row">{{ user.id }}</th>
       <td>{{ user.firstName }} {{ user.lastName }}</td>
       <td> <a href="tel:+90{{ user.phoneNumber }}">+90{{ user.phoneNumber }}</a></td>
@@ -28,12 +49,138 @@
       ></td>
       <td>
         <button
+          (click)="selectedUser = user"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
           type="button"
           [class]="'btn ' + (user.status ? 'btn-outline-success' : 'btn-outline-danger')"
         >
+        <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-pencil-square"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"
+                  />
+                  <path
+                    fill-rule="evenodd"
+                    d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
+                  />
+                </svg>
           {{ user.status ? "Aktif" : "Pasif" }}
+        </button>
+      </td>
+      <td>
+        <button
+          (click)="selectedUser = user"
+          data-bs-toggle="modal"
+          data-bs-target="#resetPasswordModal"
+          type="button"
+          class="btn btn-secondary"
+        >
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-unlock-fill" viewBox="0 0 16 16">
+          <path d="M11 1a2 2 0 0 0-2 2v4a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h5V3a3 3 0 0 1 6 0v4a.5.5 0 0 1-1 0V3a2 2 0 0 0-2-2z"></path>
+        </svg>
+          Şifre Sıfırla
         </button>
       </td>
     </tr>
   </tbody>
 </table>
+
+
+
+
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          Kullanıcı işlem değişikliğini onaylıyor musunuz?
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        {{ selectedUser.id }} No. lu kullanıcının durumunu onaylıyor musunuz?
+        <br />
+        {{
+          selectedUser.status === true ?
+          "Pasif" : "Aktif"
+        }}
+        olarak işaretlenecek
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          İptal
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="resetPassword()"
+          data-bs-dismiss="modal"
+        >
+          Değişiklikleri Kaydet
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div
+  class="modal fade"
+  id="resetPasswordModal"
+  tabindex="-1"
+  aria-labelledby="resetPasswordModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="resetPasswordModalLabel">
+          Kullanıcı işlem değişikliğini onaylıyor musunuz?
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        {{ selectedUser.id }} No. lu kullanıcının durumunu onaylıyor musunuz?
+        <br />
+        Şifre sıfırlanacak ve yeni şifre sms olarak gönderilecek.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          İptal
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="resetPassword()"
+          data-bs-dismiss="modal"
+        >
+          Değişiklikleri Kaydet
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

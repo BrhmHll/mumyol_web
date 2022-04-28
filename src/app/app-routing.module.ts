@@ -15,9 +15,10 @@ const routes = [
   { path: 'products/update/:productId', component: ProductUpdateComponent , canActivate:[LoginGuard]},
   { path: 'orders/:statusId', component: OrderComponent , canActivate:[LoginGuard]},
   { path: 'orders', component: OrderComponent , canActivate:[LoginGuard]},
+  // { path: '', component: OrderComponent , canActivate:[LoginGuard]},
   { path: 'users', component: UserComponent , canActivate:[LoginGuard]},
-  // { path: '**' , component: OrderComponent , canActivate:[LoginGuard] },
-  // { path: 'login', component: LoginComponent },
+  // { path: '**' , component: OrderComponent},
+  { path: 'login', component: LoginComponent },
 ];
 
 @NgModule({

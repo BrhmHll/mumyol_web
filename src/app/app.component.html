@@ -1,12 +1,11 @@
 <app-login *ngIf="!isAuth()"></app-login>
-
 <div *ngIf="isAuth()" class="row">
-  <!-- <div class="col-md-1"></div> -->
-  <div class="col-md-12">
+  <div class="col-md-1"></div>
+  <div class="col-md-10">
     <div>
       <app-navi></app-navi>
     </div>
     <router-outlet></router-outlet>
   </div>
-  <!-- <div class="col-md-1"></div> -->
+  <div class="col-md-1"></div>
 </div>

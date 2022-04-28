@@ -22,6 +22,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { ProductUpdateComponent } from './components/product-update/product-update.component';
 import { OrderComponent } from './components/order/order.component';
 import { UserComponent } from './components/user/user.component';
+import { UserSearchPipe } from './pipes/user-search.pipe';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { UserComponent } from './components/user/user.component';
     LoginComponent,
     ProductUpdateComponent,
     OrderComponent,
-    UserComponent
+    UserComponent,
+    UserSearchPipe
   ],
   imports: [
     BrowserModule,

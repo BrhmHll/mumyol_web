@@ -5,6 +5,7 @@ import { environment as env } from 'src/environments/environment';
 import { environment as env_prod } from 'src/environments/environment.prod';
 import { DataResponseModel } from '../models/dataResponseModel';
 import { LoginModel } from '../models/loginModel';
+import { ResponseModel } from '../models/ResponseModel';
 import { TokenModel } from '../models/tokenModel';
 
 @Injectable({
@@ -33,5 +34,9 @@ export class AuthService {
     } else {
       return false;
     }
+  }
+
+  resetUserPassword(userId:number) : Observable<ResponseModel>{
+    return this.httpClient.get<ResponseModel>(this.apiUrl + "auth/resetpasswordbyadmin?userId=" + userId.toString());
   }
 }

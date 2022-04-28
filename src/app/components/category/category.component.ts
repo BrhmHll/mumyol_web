@@ -49,11 +49,11 @@ export class CategoryComponent implements OnInit {
             this.toastrService.success(file.name, 'Başarılı');
             this.getCategories();
           } else {
-            this.toastrService.success(file.name, 'Hata');
+            this.toastrService.error(response.message, 'Hata');
           }
         },
         (responseError) => {
-          this.toastrService.success(file.name, 'Hata');
+          this.toastrService.error(responseError.error.message, 'Hata');
         }
       );
     }
@@ -65,7 +65,7 @@ export class CategoryComponent implements OnInit {
 
   getCurrentCategoryClass(category:Category){
     if (category == this.currentCategory) {
-      return "list-group-item list-group-item-action active";
+      return "list-group-item list-group-item-action";
     }
     else{
       return "list-group-item list-group-item-action"
@@ -82,7 +82,6 @@ export class CategoryComponent implements OnInit {
           this.toastrService.error(response.message, "Kategori Eklenemedi");
         }
       }, errorResponse => {
-        console.log(errorResponse)
         this.toastrService.error(errorResponse.error.message, "Kategori Eklenemedi");
       });
     }else{

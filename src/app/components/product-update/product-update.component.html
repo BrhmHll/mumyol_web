@@ -6,6 +6,10 @@
       </div>
       <div class="card-body">
         <form action="" [formGroup]="productUpdateForm" class="form-floating">
+          <div class="form-check form-switch" style="margin: 1em;">
+            <input style="margin-top: 0.8em;" class="form-check-input" type="checkbox" role="switch" id="isActive" formControlName="isActive" [(ngModel)]="product.isActive" checked>
+            <label [style]="product.isActive ? 'color: green; font-size: 1.5em;' : 'color: red; font-size: 1.5em;'" class="form-check-label" for="isActive"> Ürün {{product.isActive ? "Aktif" : "Pasif"}}</label>
+          </div>
             <div class="form-group form-floating">
               <input type="text" id="name" formControlName="name" class="form-control" placeholder="Ürün Adı" style="margin-bottom: 20px;" [(ngModel)]="product.name">
               <label for="name">Ürün Adı</label>

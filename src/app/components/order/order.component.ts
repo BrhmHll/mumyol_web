@@ -13,6 +13,7 @@ export class OrderComponent implements OnInit {
 
   constructor(private activatedRoute:ActivatedRoute, private orderService:OrderService, private toastrService:ToastrService) { }
 
+  _loaded = false;
   apiUrl = "http://31.223.4.9:5000";
   selectedTabId:number = 1;
   orders:OrderDetails[] = [];
@@ -40,8 +41,8 @@ export class OrderComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
-      if (params["statusId"] in [1,2,5,6]) {
-        this.selectedTabId = params["statusId"];
+      if (params["statusId"]) {
+        this.selectedTabId = Number.parseInt(params["statusId"]);
       }
       this.getOrdersByStatusId();
     });
@@ -78,12 +79,16 @@ export class OrderComponent implements OnInit {
   }
 
   getOrdersByStatusId(){
+    this._loaded = false;
     this.orderService.getOrdersByStatusId(this.selectedTabId).subscribe(data => {
       if (data.success) {
         this.orders = data.data;
+        this._loaded = true;
       } else {
         this.toastrService.error(data.message, "Hata");
       }
+    }, errorResponse=> {
+      this.toastrService.error(errorResponse.message, "Hata");
     });
   }
 

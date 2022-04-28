@@ -16,7 +16,7 @@
   </a>
   <ul
     *ngIf="insufficientStocks.length > 0"
-    class="dropdown-menu btn-lg"
+    class="dropdown-menu dropdown-large"
     aria-labelledby="navbarScrollingDropdown"
   >
     <li>
@@ -27,15 +27,16 @@
         title=" {{ insufficientStock.requiredStock - insufficientStock.stockAmount }}x {{insufficientStock.productName}}"
         >
         <div class="row" style="font-size: medium;">
-          <div class="col-auto">
+          <div class="col">
             <span *ngIf="insufficientStocks.length > 0" class="badge bg-secondary">
               {{ insufficientStock.requiredStock - insufficientStock.stockAmount }}
+
             </span>
+            {{ insufficientStock.productName | cutString:9 }}
+
 
           </div>
-          <div class="col-auto">
-            {{ insufficientStock.productName | cutString:10 }}
-          </div>
+
         </div>
         </a
       >
