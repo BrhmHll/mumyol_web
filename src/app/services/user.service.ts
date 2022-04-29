@@ -24,4 +24,11 @@ export class UserService {
       "status" : status
     });
   }
+
+  paybackPayment(userId:number, paybackAmount:number){
+    return this.httpClient.post<ListResponseModel<UserProfile>>( this.apiUrl + "User/paybackpayment", {
+      "userId" : userId,
+      "paybackAmount" : paybackAmount
+    });
+  }
 }

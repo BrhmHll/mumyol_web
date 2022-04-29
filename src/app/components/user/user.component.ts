@@ -3,6 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 import { UserProfile } from 'src/app/models/userProfile';
 import { UserService } from 'src/app/services/user.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { ThisReceiver } from '@angular/compiler';
 
 @Component({
   selector: 'app-user',
@@ -12,6 +13,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class UserComponent implements OnInit {
 
   searchKey:string = "";
+  paybackAmount:number = 0;
   users:UserProfile[] = [];
   selectedUser:UserProfile = {
     id: 0,
@@ -60,6 +62,18 @@ export class UserComponent implements OnInit {
       } else {
         this.toastrService.error(response.message, "Hata");
       }
+    }, errorResponse => this.toastrService.error(errorResponse.error.message, "Hata"));
+  }
+
+  paybackPayment(){
+    this.userService.paybackPayment(this.selectedUser.id, this.paybackAmount).subscribe(response => {
+      if (response.success) {
+        this.toastrService.success(response.message , "Başarılı");
+        this.getUsers();
+      } else {
+        this.toastrService.error(response.message, "Hata");
+      }
+      this.paybackAmount = 0;
     }, errorResponse => this.toastrService.error(errorResponse.error.message, "Hata"));
   }
 }

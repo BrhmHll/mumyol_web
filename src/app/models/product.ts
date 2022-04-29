@@ -15,5 +15,6 @@ export interface Product{
   isActive:boolean;
   imagePaths:string[];
   payBackRate:number;
+  payBackRateWholesale:number;
   purchasePrice:number;
 }

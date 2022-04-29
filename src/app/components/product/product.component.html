@@ -117,7 +117,7 @@
               Kar
               <br />Perakende / Toptan
             </th>
-            <th scope="col" *ngIf="showDetail">Geri Odeme <br />Orani</th>
+            <th scope="col" *ngIf="showDetail">Geri Odeme <br />Orani <br>Perakende<br>/Toptan</th>
             <th scope="col" *ngIf="showDetail">
               Geri Odeme <br />
               Perakende / Toptan
@@ -207,7 +207,7 @@
                 product.wholesalePrice - product.purchasePrice | number: "1.2-2"
               }}
             </td>
-            <td *ngIf="showDetail">{{ product.payBackRate }}%</td>
+            <td *ngIf="showDetail">{{ product.payBackRate }}% <br>/ {{ product.payBackRateWholesale }}%</td>
             <td *ngIf="showDetail">
               ₺{{
                 (product.payBackRate / 100) *
@@ -216,7 +216,7 @@
               }}
               <br />
               / ₺{{
-                (product.payBackRate / 100) *
+                (product.payBackRateWholesale / 100) *
                   (product.wholesalePrice - product.purchasePrice)
                   | number: "1.2-2"
               }}
@@ -233,7 +233,7 @@
               / ₺{{
                 product.wholesalePrice -
                   product.purchasePrice -
-                  (product.payBackRate / 100) *
+                  (product.payBackRateWholesale / 100) *
                     (product.wholesalePrice - product.purchasePrice)
                   | number: "1.2-2"
               }}

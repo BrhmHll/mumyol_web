@@ -75,7 +75,8 @@
         </button>
       </td>
       <td>
-        <button
+        <div style="margin: 0.5em;">
+          <button
           (click)="selectedUser = user"
           data-bs-toggle="modal"
           data-bs-target="#resetPasswordModal"
@@ -87,6 +88,22 @@
         </svg>
           Şifre Sıfırla
         </button>
+        </div>
+        <div style="margin: 0.5em;">
+          <button
+          (click)="selectedUser = user"
+          data-bs-toggle="modal"
+          data-bs-target="#paybackPaymentModel"
+          type="button"
+          class="btn btn-outline-success"
+        >
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cash" viewBox="0 0 16 16">
+          <path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
+          <path d="M0 4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V6a2 2 0 0 1-2-2H3z"/>
+        </svg>
+          Ödeme Yap
+        </button>
+        </div>
       </td>
     </tr>
   </tbody>
@@ -176,6 +193,52 @@
           type="button"
           class="btn btn-primary"
           (click)="resetPassword()"
+          data-bs-dismiss="modal"
+        >
+          Değişiklikleri Kaydet
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div
+  class="modal fade"
+  id="paybackPaymentModel"
+  tabindex="-1"
+  aria-labelledby="paybackPaymentModelLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="paybackPaymentModelLabel">
+          Kullanıcı işlem değişikliğini onaylıyor musunuz?
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        {{ selectedUser.id }} No. lu kullanıcının durumunu onaylıyor musunuz?
+        <br />
+        <div class="form-group form-floating">
+          <input step=".01" [(ngModel)]="paybackAmount" type="number" id="paybackAmount" class="form-control" placeholder="Ödeme Tutarı" style="margin-bottom: 20px;">
+          <label for="paybackAmount">Ödeme yapacağınız tutarı giriniz...</label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          İptal
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="paybackPayment()"
           data-bs-dismiss="modal"
         >
           Değişiklikleri Kaydet

@@ -49,8 +49,12 @@
               <label for="minQuantityForWholesale">Toptan İçin Minumum Adet</label>
             </div>
             <div class="form-group form-floating">
-              <input type="number" id="payBackRate" formControlName="payBackRate" class="form-control" placeholder="Bonus Oranı" style="margin-bottom: 20px;" [(ngModel)]="product.payBackRate">
-              <label for="payBackRate">Bonus Oranı</label>
+              <input type="number" id="payBackRate" formControlName="payBackRate" class="form-control" placeholder="Perakende Bonus Oranı" style="margin-bottom: 20px;" [(ngModel)]="product.payBackRate">
+              <label for="payBackRate">Perakende Bonus Oranı</label>
+            </div>
+            <div class="form-group form-floating">
+              <input type="number" id="payBackRateWholesale" formControlName="payBackRateWholesale" class="form-control" placeholder="Toptan Bonus Oranı" style="margin-bottom: 20px;" [(ngModel)]="product.payBackRateWholesale">
+              <label for="payBackRateWholesale">Toptan Bonus Oranı</label>
             </div>
             <div class="form-group form-floating">
               <input type="number" id="stockAmount" formControlName="stockAmount" class="form-control" placeholder="Stok Adedi" style="margin-bottom: 20px;" [(ngModel)]="product.stockAmount">

@@ -38,6 +38,7 @@ export class ProductUpdateComponent implements OnInit {
     stockAmount: 0,
     unit: '',
     wholesalePrice: 0,
+    payBackRateWholesale: 0
   };
   image1: File = new File([], '');
   image2: File = new File([], '');
@@ -110,6 +111,7 @@ export class ProductUpdateComponent implements OnInit {
       retailPrice: [0.0, Validators.required],
       minQuantityForWholesale: [100, Validators.required],
       payBackRate: [5, Validators.required],
+      payBackRateWholesale: [5, Validators.required],
       stockAmount: [0, Validators.required],
       isActive: [true, Validators.required],
     });
