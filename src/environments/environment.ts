@@ -4,8 +4,11 @@
 
 export const environment = {
   production: false,
-  apiUrl: "http://31.223.4.9:5000/api/",
-  staticFilesUrl: "http://31.223.4.9:5000"
+  apiUrl: "https://momandltdapi.ibrahimsakar.com/api/",
+  staticFilesUrl: "https://momandltdapi.ibrahimsakar.com",
+  // apiUrl: "http://31.223.4.9:5000/api/",
+  // staticFilesUrl: "http://31.223.4.9:5000"
+  // https://momandltdapi.ibrahimsakar.com/api/auth/registerphone?phoneNumber=5348267927
 };
 
 /*

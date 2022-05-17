@@ -69,6 +69,7 @@ export class UserComponent implements OnInit {
     this.userService.paybackPayment(this.selectedUser.id, this.paybackAmount).subscribe(response => {
       if (response.success) {
         this.toastrService.success(response.message , "Başarılı");
+        this.paybackAmount = 0;
         this.getUsers();
       } else {
         this.toastrService.error(response.message, "Hata");

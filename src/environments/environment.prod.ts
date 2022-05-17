@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: "http://31.223.4.9:5000/api/",
-  staticFilesUrl: "http://31.223.4.9:5000"
+  apiUrl: "https://api.momandltd.com/api/",
+  staticFilesUrl: "https://api.momandltd.com"
 };

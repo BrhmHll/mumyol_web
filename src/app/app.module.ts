@@ -23,6 +23,7 @@ import { ProductUpdateComponent } from './components/product-update/product-upda
 import { OrderComponent } from './components/order/order.component';
 import { UserComponent } from './components/user/user.component';
 import { UserSearchPipe } from './pipes/user-search.pipe';
+import { AdsComponent } from './components/ads/ads.component';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { UserSearchPipe } from './pipes/user-search.pipe';
     ProductUpdateComponent,
     OrderComponent,
     UserComponent,
-    UserSearchPipe
+    UserSearchPipe,
+    AdsComponent
   ],
   imports: [
     BrowserModule,

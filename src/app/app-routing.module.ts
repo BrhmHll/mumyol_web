@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AdsComponent } from './components/ads/ads.component';
 import { LoginComponent } from './components/login/login.component';
 import { OrderComponent } from './components/order/order.component';
 import { ProductAddComponent } from './components/product-add/product-add.component';
@@ -15,10 +16,11 @@ const routes = [
   { path: 'products/update/:productId', component: ProductUpdateComponent , canActivate:[LoginGuard]},
   { path: 'orders/:statusId', component: OrderComponent , canActivate:[LoginGuard]},
   { path: 'orders', component: OrderComponent , canActivate:[LoginGuard]},
-  // { path: '', component: OrderComponent , canActivate:[LoginGuard]},
+  { path: '', redirectTo: 'orders', pathMatch:'full'},
   { path: 'users', component: UserComponent , canActivate:[LoginGuard]},
-  // { path: '**' , component: OrderComponent},
   { path: 'login', component: LoginComponent },
+  { path: 'ads', component: AdsComponent , canActivate:[LoginGuard] },
+  { path: '**', component: AdsComponent },
 ];
 
 @NgModule({

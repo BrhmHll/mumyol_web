@@ -1,0 +1,22 @@
+
+<div class="container" style="margin-top: 1em;">
+  <h3>Reklam Yönetimi</h3>
+  <p>Reklam eklemek için dosya seçiniz</p>
+  <div class="input-group mb-3">
+    <input type="file" accept="image/*" (change)="addImage($event)" class="form-control" id="imageAdd" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+  </div>
+</div>
+<div style="margin-top: 1em;" class="container">
+
+  <div class="row" *ngFor="let ad of ads; let i = index">
+   <div class="card" style="margin-top: 1em; width: 30em;">
+    <img
+    class="card-img-top"
+    src="{{ apiUrl }}{{ ad.imagePath }}"
+  />
+    <button type="button" class="btn btn-danger" (click)="deleteImage(ad.id)" style="margin-bottom: 1em;">Reklamı Sil</button>
+   </div>
+  </div>
+
+</div>
+
